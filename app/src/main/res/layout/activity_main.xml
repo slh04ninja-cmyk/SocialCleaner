@@ -223,15 +223,15 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="🗑️ Supprimer"
-            android:textSize="12sp"
+            android:layout_height="48dp"
+            android:text="Supprimer"
+            android:textSize="14sp"
             android:textStyle="bold"
-            app:cornerRadius="10dp"
+            app:cornerRadius="12dp"
             app:backgroundTint="@color/error"
             android:textColor="@color/text_primary"
             android:minWidth="0dp"
-            android:paddingHorizontal="16dp"
+            android:paddingHorizontal="24dp"
             android:visibility="gone"/>
     </LinearLayout>
 

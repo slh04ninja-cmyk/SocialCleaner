@@ -56,7 +56,7 @@ class YearAdapter(
         private val headerLayout: View = itemView.findViewById(R.id.yearHeaderLayout)
 
         fun bind(yearGroup: YearGroup) {
-            tvYear.text = "📅 ${yearGroup.year}"
+            tvYear.text = yearGroup.year.toString()
             tvYearSummary.text = "${yearGroup.totalFiles} fichiers • ${com.socialcleaner.model.formatSize(yearGroup.totalSize)}"
 
             val isExpanded = expandedYears.contains(yearGroup.year)

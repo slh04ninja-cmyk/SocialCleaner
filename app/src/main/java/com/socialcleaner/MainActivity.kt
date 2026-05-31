@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startScan() {
         progressBar.visibility = View.VISIBLE
-        tvStatus.text = "⏳ Analyse en cours..."
+        tvStatus.text = "Analyse en cours..."
         tvStatus.visibility = View.VISIBLE
         btnScan.isEnabled = false
         btnDelete.visibility = View.GONE
@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
                 for ((index, app) in apps.withIndex()) {
                     withContext(Dispatchers.Main) {
-                        tvStatus.text = "🔍 Scan ${app.name}... (${index + 1}/${apps.size})"
+                        tvStatus.text = "Scan ${app.name}... (${index + 1}/${apps.size})"
                     }
 
                     val scanResults = scanner.scanApp(app, selectedYear)
@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
         btnScan.isEnabled = true
 
         if (results.isEmpty()) {
-            tvStatus.text = "😕 Aucune donnée trouvée"
+            tvStatus.text = "Aucune donnée trouvée"
             tvStatFiles.text = "0"
             tvStatSize.text = "0"
             tvStatApps.text = "0"
@@ -181,7 +181,7 @@ class MainActivity : AppCompatActivity() {
         val totalSize = results.sumOf { it.totalSize }
         val appCount = results.map { it.appName }.distinct().size
 
-        tvStatus.text = "✅ Scan terminé"
+        tvStatus.text = "Scan terminé"
         tvStatus.setTextColor(resources.getColor(R.color.success, theme))
         tvStatFiles.text = totalFiles.toString()
         tvStatSize.text = formatSize(totalSize)
@@ -212,7 +212,7 @@ class MainActivity : AppCompatActivity() {
 
         if (count > 0) {
             selectionSummary.visibility = View.VISIBLE
-            tvSelection.text = "✅ $count fichiers • ${formatSize(totalSize)}"
+            tvSelection.text = "$count fichiers • ${formatSize(totalSize)}"
         } else {
             selectionSummary.visibility = View.GONE
         }
@@ -222,7 +222,7 @@ class MainActivity : AppCompatActivity() {
         val selectedFiles = yearAdapter.getAllSelectedFiles()
 
         if (selectedFiles.isEmpty()) {
-            Toast.makeText(this, "⚠️ Sélectionnez d'abord des fichiers", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Sélectionnez d'abord des fichiers", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -246,22 +246,22 @@ class MainActivity : AppCompatActivity() {
         val appList = appNames.joinToString(", ")
 
         AlertDialog.Builder(this)
-            .setTitle("⚠️ Confirmation")
+            .setTitle("Confirmation")
             .setMessage(
-                "📱 Apps: $appList\n" +
-                "📅 Année(s): $yearList\n" +
-                "📁 Fichiers: ${selectedFiles.size}\n" +
-                "💾 Taille: ${formatSize(deleteSize)}\n\n" +
+                "Apps: $appList\n" +
+                "Année(s): $yearList\n" +
+                "Fichiers: ${selectedFiles.size}\n" +
+                "Taille: ${formatSize(deleteSize)}\n\n" +
                 "Cette action est irréversible !"
             )
-            .setPositiveButton("🗑️ Supprimer") { _, _ -> deleteSelected(selectedFiles) }
+            .setPositiveButton("Supprimer") { _, _ -> deleteSelected(selectedFiles) }
             .setNegativeButton("Annuler", null)
             .show()
     }
 
     private fun deleteSelected(filesToDelete: Set<String>) {
         progressBar.visibility = View.VISIBLE
-        tvStatus.text = "🗑️ Suppression en cours..."
+        tvStatus.text = "Suppression en cours..."
 
         lifecycleScope.launch {
             var deletedCount = 0
@@ -282,13 +282,13 @@ class MainActivity : AppCompatActivity() {
             }
 
             progressBar.visibility = View.GONE
-            tvStatus.text = "✅ $deletedCount supprimés • ${formatSize(deletedSize)} libérés"
+            tvStatus.text = "$deletedCount supprimés • ${formatSize(deletedSize)} libérés"
             tvStatus.setTextColor(resources.getColor(R.color.success, theme))
             btnDelete.visibility = View.GONE
             selectionSummary.visibility = View.GONE
 
             Toast.makeText(this@MainActivity,
-                "✅ $deletedCount fichiers supprimés", Toast.LENGTH_LONG).show()
+                "$deletedCount fichiers supprimés", Toast.LENGTH_LONG).show()
 
             startScan()
         }

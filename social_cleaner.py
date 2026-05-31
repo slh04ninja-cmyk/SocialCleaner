@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-🧹 Social Cleaner - Version Termux
-Scan et nettoyage des données des réseaux sociaux
+🧹 Social Cleaner v2.0 - Version corrigée
+Scan et nettoyage SÉCURISÉ des données des réseaux sociaux
 """
 
 import os
@@ -140,7 +140,7 @@ def get_file_year(filepath):
     except:
         return None
 
-def scan_directory(base_path, categories):
+def scan_directory(base_path, categories, target_year=None):
     """Scanner un répertoire et catégoriser les fichiers"""
     results = defaultdict(lambda: defaultdict(list))
     
@@ -161,6 +161,10 @@ def scan_directory(base_path, categories):
             if year is None:
                 continue
             
+            # FILTRE PAR ANNÉE - CRITIQUE !
+            if target_year and year != target_year:
+                continue
+            
             try:
                 size = os.path.getsize(filepath)
             except:
@@ -176,7 +180,7 @@ def scan_directory(base_path, categories):
     return results
 
 def scan_app(app_name, app_config, target_year=None):
-    """Scanner une application"""
+    """Scanner une application avec filtre année"""
     base_paths = [
         "/storage/emulated/0",
         os.path.expanduser("~/storage/shared")
@@ -187,11 +191,9 @@ def scan_app(app_name, app_config, target_year=None):
     for media_path in app_config["paths"]:
         for base in base_paths:
             full_path = os.path.join(base, media_path)
-            results = scan_directory(full_path, app_config["categories"])
+            results = scan_directory(full_path, app_config["categories"], target_year)
             
             for year, categories in results.items():
-                if target_year and year != target_year:
-                    continue
                 for cat_name, files in categories.items():
                     all_results[year][cat_name].extend(files)
     
@@ -204,7 +206,7 @@ def clear_screen():
 def print_header():
     """Afficher l'en-tête"""
     print("\033[1;35m" + "=" * 60)
-    print("  🧹 SOCIAL CLEANER - Nettoyage Réseaux Sociaux")
+    print("  🧹 SOCIAL CLEANER v2.0 - Version Sécurisée")
     print("=" * 60 + "\033[0m")
     print()
 
@@ -220,24 +222,46 @@ def print_apps_menu():
     print(f"  99. ❌ Quitter")
     print()
 
-def print_year_menu(years):
-    """Afficher le menu des années"""
+def get_year_selection():
+    """Demander l'année à scanner"""
+    current_year = datetime.now().year
     print("\033[1;36m📅 Sélectionnez l'année :\033[0m")
     print()
     print("  0. Toutes les années")
-    for i, year in enumerate(sorted(years, reverse=True), 1):
+    for i, year in enumerate(range(current_year, 2017, -1), 1):
         print(f"  {i}. {year}")
     print()
+    
+    choice = input("\033[1;33m  Votre choix (année): \033[0m").strip()
+    
+    if choice == '0':
+        return None  # Toutes les années
+    
+    try:
+        idx = int(choice) - 1
+        years = list(range(current_year, 2017, -1))
+        if 0 <= idx < len(years):
+            return years[idx]
+    except:
+        pass
+    
+    print("\033[1;31m  Choix invalide! Scan de toutes les années.\033[0m")
+    time.sleep(1)
+    return None
 
-def display_results(results, app_name=None):
-    """Afficher les résultats du scan"""
+def display_results(results, app_name, target_year):
+    """Afficher les résultats du scan avec contexte clair"""
     if not results:
         print("\033[1;33m  Aucune donnée trouvée.\033[0m")
-        return
+        return None, 0, 0
     
     total_files = 0
     total_size = 0
     selections = {}
+    
+    year_text = str(target_year) if target_year else "Toutes les années"
+    print(f"\n\033[1;33m📊 Résultats pour {app_name} - {year_text}\033[0m")
+    print()
     
     for year in sorted(results.keys(), reverse=True):
         categories = results[year]
@@ -320,6 +344,38 @@ def get_selection(selections):
     
     return selected
 
+def confirm_deletion(selections, selected_keys, app_name):
+    """Confirmer la suppression avec détails clairs"""
+    print()
+    print("\033[1;31m" + "=" * 50)
+    print("  ⚠️  CONFIRMATION DE SUPPRESSION")
+    print("=" * 50 + "\033[0m")
+    print()
+    print(f"  Application: \033[1;33m{app_name}\033[0m")
+    print()
+    print("  Éléments à supprimer :")
+    
+    total_files = 0
+    total_size = 0
+    
+    for key in selected_keys:
+        if key in selections:
+            year, cat = key.split('_', 1)
+            files = selections[key]["files"]
+            size = sum(f["size"] for f in files)
+            print(f"    • {year} - {cat}: {len(files)} fichiers ({format_size(size)})")
+            total_files += len(files)
+            total_size += size
+    
+    print()
+    print(f"  \033[1;31mTOTAL: {total_files} fichiers • {format_size(total_size)}\033[0m")
+    print()
+    print("  \033[1;31m⚠️  Cette action est IRRÉVERSIBLE!\033[0m")
+    print()
+    
+    confirm = input("  \033[1;33mTapez 'SUPPRIMER' pour confirmer: \033[0m").strip()
+    return confirm == "SUPPRIMER"
+
 def delete_files(selections, selected_keys):
     """Supprimer les fichiers sélectionnés"""
     deleted_count = 0
@@ -386,6 +442,7 @@ def main():
         # Déterminer les apps à scanner
         if choice == '0':
             apps_to_scan = SOCIAL_APPS
+            app_name = "Toutes les apps"
         else:
             try:
                 idx = int(choice) - 1
@@ -401,17 +458,23 @@ def main():
                 time.sleep(1)
                 continue
         
+        # Sélection de l'année
+        clear_screen()
+        print_header()
+        target_year = get_year_selection()
+        
         # Scanner
         clear_screen()
         print_header()
-        print("\033[1;33m🔍 Scan en cours...\033[0m")
+        year_text = str(target_year) if target_year else "Toutes les années"
+        print(f"\033[1;33m🔍 Scan de {app_name} pour {year_text}...\033[0m")
         print()
         
         all_results = defaultdict(lambda: defaultdict(list))
         
-        for app_name, app_config in apps_to_scan.items():
-            print(f"  Scan {app_config['icon']} {app_name}...", end="", flush=True)
-            results = scan_app(app_name, app_config)
+        for name, config in apps_to_scan.items():
+            print(f"  Scan {config['icon']} {name}...", end="", flush=True)
+            results = scan_app(name, config, target_year)
             
             for year, categories in results.items():
                 for cat_name, files in categories.items():
@@ -424,12 +487,12 @@ def main():
         print_header()
         
         if not all_results:
-            print("\033[1;33m  Aucune donnée trouvée pour ces apps.\033[0m")
+            print(f"\033[1;33m  Aucune donnée trouvée pour {app_name} en {year_text}.\033[0m")
             print()
             input("  Appuyez sur Entrée pour continuer...")
             continue
         
-        selections, total_files, total_size = display_results(all_results)
+        selections, total_files, total_size = display_results(all_results, app_name, target_year)
         
         if total_files == 0:
             print()
@@ -448,25 +511,11 @@ def main():
         if action == '1':
             selected_keys = get_selection(selections)
             if selected_keys:
-                # Calculer la taille totale à supprimer
-                total_delete_size = 0
-                total_delete_count = 0
-                for key in selected_keys:
-                    if key in selections:
-                        for f in selections[key]["files"]:
-                            total_delete_size += f["size"]
-                            total_delete_count += 1
-                
-                print()
-                print(f"\033[1;31m  ⚠️  Vous allez supprimer {total_delete_count} fichiers ({format_size(total_delete_size)})\033[0m")
-                print(f"\033[1;31m  Cette action est IRRÉVERSIBLE!\033[0m")
-                print()
-                confirm = input("\033[1;33m  Confirmer (oui/non): \033[0m").strip()
-                
-                if confirm.lower() in ['oui', 'o', 'yes', 'y']:
+                # Double confirmation
+                if confirm_deletion(selections, selected_keys, app_name):
                     delete_files(selections, selected_keys)
                 else:
-                    print("\n  Suppression annulée.")
+                    print("\n  \033[1;33mSuppression annulée.\033[0m")
         
         print()
         input("  Appuyez sur Entrée pour continuer...")

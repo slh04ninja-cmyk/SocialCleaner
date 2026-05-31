@@ -10,7 +10,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Social Cleaner"
-        android:theme="@style/Theme.SocialCleaner"
+        android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true">
 
         <activity

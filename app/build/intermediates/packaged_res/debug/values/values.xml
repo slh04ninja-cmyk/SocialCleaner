@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent">#0f3460</color>
+    <color name="background">#1a1a2e</color>
+    <color name="primary">#e94560</color>
+    <color name="primary_dark">#c81e45</color>
+    <color name="surface">#16213e</color>
+    <color name="text_primary">#ffffff</color>
+    <color name="text_secondary">#a0a0a0</color>
+    <string name="all_years">Toutes les années</string>
+    <string name="app_name">Social Cleaner</string>
+    <string name="cancel">Annuler</string>
+    <string name="confirm_delete">Êtes-vous sûr de vouloir supprimer les fichiers sélectionnés ?</string>
+    <string name="delete">Supprimer</string>
+    <string name="files">Fichiers</string>
+    <string name="irreversible">Cette action est irréversible.</string>
+    <string name="no_data">Aucune donnée trouvée</string>
+    <string name="scan">Scanner</string>
+    <string name="scanning">Analyse en cours…</string>
+    <string name="size">Taille</string>
+    <style name="Theme.SocialCleaner" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#e94560</item>
+        <item name="colorPrimaryVariant">#c81e45</item>
+        <item name="colorOnPrimary">#ffffff</item>
+        <item name="colorSecondary">#0f3460</item>
+        <item name="colorSecondaryVariant">#16213e</item>
+        <item name="colorOnSecondary">#ffffff</item>
+        <item name="android:statusBarColor">#0f3460</item>
+        <item name="android:navigationBarColor">#1a1a2e</item>
+        <item name="android:windowBackground">#1a1a2e</item>
+    </style>
+</resources>

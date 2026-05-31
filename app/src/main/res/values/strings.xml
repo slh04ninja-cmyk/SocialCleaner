@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Social Cleaner</string>
+    <string name="app_description">Application de nettoyage de stockage pour les fichiers multimédias des réseaux sociaux</string>
+    <string name="permission_description">Accès au stockage pour analyser et supprimer les fichiers des applications de réseaux sociaux</string>
     <string name="scan">Scanner</string>
     <string name="delete">Supprimer</string>
     <string name="all_years">Toutes les années</string>
@@ -11,4 +13,10 @@
     <string name="cancel">Annuler</string>
     <string name="files">Fichiers</string>
     <string name="size">Taille</string>
+    <string name="files_count">%d fichiers</string>
+    <string name="space_used">%s utilisé</string>
+    <string name="apps_count">%d applications</string>
+    <string name="scan_complete">Scan terminé</string>
+    <string name="delete_complete">%d fichiers supprimés</string>
+    <string name="select_files_first">Sélectionnez d\'abord des fichiers</string>
 </resources>

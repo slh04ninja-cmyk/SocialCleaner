@@ -17,11 +17,21 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            storeFile file("release-keystore.jks")
+            storePassword "social2026"
+            keyAlias "socialcleaner"
+            keyPassword "social2026"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
         debug {
             minifyEnabled false
@@ -39,6 +49,12 @@ android {
 
     buildFeatures {
         viewBinding true
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
     }
 }
 

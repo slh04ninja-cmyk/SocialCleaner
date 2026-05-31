@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "com.socialcleaner.app-mergeDebugResources-33:/layout/item_app_result.xml",
+        "source": "com.socialcleaner.app-main-36:/layout/item_app_result.xml"
+    },
+    {
+        "merged": "com.socialcleaner.app-mergeDebugResources-33:/layout/item_category.xml",
+        "source": "com.socialcleaner.app-main-36:/layout/item_category.xml"
+    },
+    {
+        "merged": "com.socialcleaner.app-mergeDebugResources-33:/layout/item_year_group.xml",
+        "source": "com.socialcleaner.app-main-36:/layout/item_year_group.xml"
+    },
+    {
+        "merged": "com.socialcleaner.app-mergeDebugResources-33:/layout/activity_main.xml",
+        "source": "com.socialcleaner.app-main-36:/layout/activity_main.xml"
+    }
+]

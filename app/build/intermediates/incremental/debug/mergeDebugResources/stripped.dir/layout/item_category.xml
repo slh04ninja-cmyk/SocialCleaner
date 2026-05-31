@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingVertical="4dp">
+
+    <TextView
+        android:id="@+id/tvCategoryName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="#d0d0d0"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/tvCategoryInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#808080"
+        android:textSize="11sp"
+        android:layout_marginEnd="8dp"/>
+
+    <CheckBox
+        android:id="@+id/cbCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="#e94560"
+        android:scaleX="0.8"
+        android:scaleY="0.8"/>
+
+</LinearLayout>

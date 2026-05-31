@@ -245,7 +245,7 @@ class MainActivity : AppCompatActivity() {
         val yearList = years.sorted().joinToString(", ")
         val appList = appNames.joinToString(", ")
 
-        AlertDialog.Builder(this, R.style.ThemeOverlay_MaterialComponents_Dialog_Alert)
+        AlertDialog.Builder(this)
             .setTitle("⚠️ Confirmation")
             .setMessage(
                 "📱 Apps: $appList\n" +

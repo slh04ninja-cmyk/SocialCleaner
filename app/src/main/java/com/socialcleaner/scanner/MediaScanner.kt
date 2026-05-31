@@ -4,6 +4,7 @@ import android.os.Environment
 import com.socialcleaner.model.*
 import java.io.File
 import java.util.Calendar
+import java.util.regex.Pattern
 
 data class SocialApp(
     val name: String,
@@ -148,6 +149,16 @@ class MediaScanner {
         "/storage/emulated/0"
     )
 
+    // Patterns pour extraire la date du nom de fichier
+    // WhatsApp: IMG-20240115-WA0001.jpg, VID-20240115-WA0001.mp4
+    // Telegram: 2024-01-15 12.30.45.jpg
+    // Generic: 20240115_123045.jpg, Screenshot_20240115-123045.png
+    private val datePatterns = listOf(
+        Pattern.compile("(20\\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])"),  // 20240115
+        Pattern.compile("(20\\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])"),  // 2024-01-15
+        Pattern.compile("(20\\d{2})_(0[1-9]|1[0-2])_(0[1-9]|[12]\\d|3[01])"),  // 2024_01_15
+    )
+
     fun scanApp(app: SocialApp, targetYear: Int? = null): List<AppScanResult> {
         val results = mutableListOf<AppScanResult>()
         val yearGroups = mutableMapOf<Int, MutableList<MediaFile>>()
@@ -185,6 +196,46 @@ class MediaScanner {
         return results
     }
 
+    /**
+     * Extrait l'année d'un fichier en priorisant le nom du fichier,
+     * puis le chemin (dossier parent), puis lastModified().
+     */
+    private fun extractYear(file: File): Int {
+        val fileName = file.nameWithoutExtension
+
+        // 1. Essayer d'extraire la date du nom de fichier
+        for (pattern in datePatterns) {
+            val matcher = pattern.matcher(fileName)
+            if (matcher.find()) {
+                try {
+                    val year = matcher.group(1)!!.toInt()
+                    if (year in 2018..2030) {
+                        return year
+                    }
+                } catch (_: Exception) {}
+            }
+        }
+
+        // 2. Essayer d'extraire du chemin (ex: /2024/ ou /Sent/2024/)
+        val path = file.absolutePath
+        val pathYearPattern = Pattern.compile("[/\\\\](20\\d{2})[/\\\\]")
+        val pathMatcher = pathYearPattern.matcher(path)
+        if (pathMatcher.find()) {
+            try {
+                val year = pathMatcher.group(1)!!.toInt()
+                if (year in 2018..2030) {
+                    return year
+                }
+            } catch (_: Exception) {}
+        }
+
+        // 3. Fallback: utiliser lastModified()
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = file.lastModified()
+        }
+        return calendar.get(Calendar.YEAR)
+    }
+
     private fun scanDirectory(
         dir: File,
         categoryMap: Map<String, List<String>>,
@@ -197,10 +248,7 @@ class MediaScanner {
                 val ext = file.extension.lowercase()
                 val isKnown = categoryMap.values.flatten().any { it == ext }
                 if (isKnown || ext.isNotEmpty()) {
-                    val calendar = Calendar.getInstance().apply {
-                        timeInMillis = file.lastModified()
-                    }
-                    val year = calendar.get(Calendar.YEAR)
+                    val year = extractYear(file)
 
                     val mediaFile = MediaFile(
                         path = file.absolutePath,

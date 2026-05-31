@@ -87,8 +87,8 @@ class MainActivity : AppCompatActivity() {
             years.add(y.toString())
         }
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, years)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter = ArrayAdapter(this, R.layout.spinner_item, years)
+        adapter.setDropDownViewResource(R.layout.spinner_item)
         spinnerYear.adapter = adapter
 
         spinnerYear.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -164,6 +164,9 @@ class MainActivity : AppCompatActivity() {
         if (results.isEmpty()) {
             tvStatus.text = "Aucune donnée trouvée"
             tvTotalSummary.text = ""
+            yearAdapter.setData(emptyList())
+            btnDelete.visibility = View.GONE
+            selectionSummary.visibility = View.GONE
             return
         }
 
@@ -181,33 +184,72 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateSelectionSummary() {
-        val selectedCount = yearAdapter.itemCount
-        selectionSummary.visibility = View.VISIBLE
+        val selectedFiles = yearAdapter.getAllSelectedFiles()
+        val count = selectedFiles.size
+        var totalSize = 0L
 
-        val selectedFiles = mutableSetOf<String>()
-        var selectedSize = 0L
-
+        // Calculate total size of selected files
         for (result in allResults) {
             for (category in result.categories) {
                 for (file in category.files) {
-                    // This is simplified - in real app, track through adapter
+                    if (selectedFiles.contains(file.path)) {
+                        totalSize += file.size
+                    }
                 }
             }
         }
 
-        tvSelection.text = "Sélection: ${selectedFiles.size} fichiers • ${formatSize(selectedSize)}"
+        if (count > 0) {
+            selectionSummary.visibility = View.VISIBLE
+            tvSelection.text = "Sélection: $count fichiers • ${formatSize(totalSize)}"
+        } else {
+            selectionSummary.visibility = View.GONE
+        }
     }
 
     private fun confirmDelete() {
+        val selectedFiles = yearAdapter.getAllSelectedFiles()
+
+        if (selectedFiles.isEmpty()) {
+            Toast.makeText(this, "Sélectionnez d'abord des fichiers à supprimer", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Calculate what will be deleted
+        var deleteSize = 0L
+        val appNames = mutableSetOf<String>()
+        val years = mutableSetOf<Int>()
+
+        for (result in allResults) {
+            for (category in result.categories) {
+                for (file in category.files) {
+                    if (selectedFiles.contains(file.path)) {
+                        deleteSize += file.size
+                        appNames.add(result.appName)
+                        years.add(result.year)
+                    }
+                }
+            }
+        }
+
+        val yearList = years.sorted().joinToString(", ")
+        val appList = appNames.joinToString(", ")
+
         AlertDialog.Builder(this)
             .setTitle("⚠️ Suppression")
-            .setMessage("Êtes-vous sûr de vouloir supprimer les fichiers sélectionnés ?\n\nCette action est irréversible.")
-            .setPositiveButton("Supprimer") { _, _ -> deleteSelected() }
+            .setMessage(
+                "App: $appList\n" +
+                "Année(s): $yearList\n" +
+                "Fichiers: ${selectedFiles.size}\n" +
+                "Taille: ${formatSize(deleteSize)}\n\n" +
+                "Cette action est irréversible."
+            )
+            .setPositiveButton("Supprimer") { _, _ -> deleteSelected(selectedFiles) }
             .setNegativeButton("Annuler", null)
             .show()
     }
 
-    private fun deleteSelected() {
+    private fun deleteSelected(filesToDelete: Set<String>) {
         progressBar.visibility = View.VISIBLE
         tvStatus.text = "Suppression en cours..."
 
@@ -216,20 +258,15 @@ class MainActivity : AppCompatActivity() {
             var deletedSize = 0L
 
             withContext(Dispatchers.IO) {
-                for (result in allResults) {
-                    for (category in result.categories) {
-                        for (file in category.files) {
-                            // In real app, check if file is selected
-                            try {
-                                val f = File(file.path)
-                                if (f.exists() && f.delete()) {
-                                    deletedCount++
-                                    deletedSize += file.size
-                                }
-                            } catch (e: Exception) {
-                                // Handle permission errors
-                            }
+                for (filePath in filesToDelete) {
+                    try {
+                        val f = File(filePath)
+                        if (f.exists() && f.delete()) {
+                            deletedCount++
+                            deletedSize += f.length()
                         }
+                    } catch (e: Exception) {
+                        // Handle permission errors
                     }
                 }
             }
@@ -237,6 +274,7 @@ class MainActivity : AppCompatActivity() {
             progressBar.visibility = View.GONE
             tvStatus.text = "✅ $deletedCount fichiers supprimés • ${formatSize(deletedSize)} libérés"
             btnDelete.visibility = View.GONE
+            selectionSummary.visibility = View.GONE
 
             Toast.makeText(this@MainActivity,
                 "$deletedCount fichiers supprimés", Toast.LENGTH_LONG).show()

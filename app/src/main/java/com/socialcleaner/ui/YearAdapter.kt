@@ -1,6 +1,5 @@
 package com.socialcleaner.ui
 
-import android.animation.ObjectAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,16 +16,25 @@ class YearAdapter(
 
     private var items = listOf<YearGroup>()
     private val expandedYears = mutableSetOf<Int>()
+    private val appAdapters = mutableMapOf<Int, AppResultAdapter>()
 
     fun setData(data: List<YearGroup>) {
         items = data
-        if (expandedYears.isEmpty() && data.isNotEmpty()) {
+        appAdapters.clear()
+        expandedYears.clear()
+        if (data.isNotEmpty()) {
             expandedYears.add(data.first().year)
         }
         notifyDataSetChanged()
     }
 
-    fun getAllAdapter(): AppResultAdapter? = null
+    fun getAllSelectedFiles(): Set<String> {
+        val allSelected = mutableSetOf<String>()
+        for (adapter in appAdapters.values) {
+            allSelected.addAll(adapter.getSelectedFiles())
+        }
+        return allSelected
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -71,6 +79,9 @@ class YearAdapter(
                 rvApps.layoutManager = LinearLayoutManager(itemView.context)
                 rvApps.adapter = appAdapter
                 appAdapter.setData(yearGroup.apps)
+                appAdapters[yearGroup.year] = appAdapter
+            } else {
+                appAdapters.remove(yearGroup.year)
             }
         }
     }

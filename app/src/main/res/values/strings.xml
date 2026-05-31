@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Social Cleaner</string>
+    <string name="scan">Scanner</string>
+    <string name="delete">Supprimer</string>
+    <string name="all_years">Toutes les années</string>
+    <string name="scanning">Analyse en cours…</string>
+    <string name="no_data">Aucune donnée trouvée</string>
+    <string name="confirm_delete">Êtes-vous sûr de vouloir supprimer les fichiers sélectionnés ?</string>
+    <string name="irreversible">Cette action est irréversible.</string>
+    <string name="cancel">Annuler</string>
+    <string name="files">Fichiers</string>
+    <string name="size">Taille</string>
+</resources>

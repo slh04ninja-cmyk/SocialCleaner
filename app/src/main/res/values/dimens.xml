@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Phone text sizes (default) -->
+    <dimen name="text_title">28sp</dimen>
+    <dimen name="text_heading">18sp</dimen>
+    <dimen name="text_body">14sp</dimen>
+    <dimen name="text_caption">12sp</dimen>
+    <dimen name="text_stat">22sp</dimen>
+
+    <!-- Phone padding -->
+    <dimen name="padding_screen">0dp</dimen>
+    <dimen name="padding_card">12dp</dimen>
+    <dimen name="padding_header">20dp</dimen>
+
+    <!-- Phone card sizes -->
+    <dimen name="card_radius">16dp</dimen>
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="button_radius">12dp</dimen>
+    <dimen name="spinner_height">48dp</dimen>
+
+    <!-- Phone icon sizes -->
+    <dimen name="icon_app">40dp</dimen>
+    <dimen name="icon_category">28dp</dimen>
+</resources>

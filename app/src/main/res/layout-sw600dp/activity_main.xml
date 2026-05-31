@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark"
+    android:fillViewport="true"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="48dp">
+
+        <!-- Gradient Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_gradient_header"
+            android:paddingTop="56dp"
+            android:paddingBottom="32dp"
+            android:paddingHorizontal="32dp"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Social Cleaner"
+                android:textColor="@color/text_primary"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Libérez l'espace de votre tablette"
+                android:textColor="@color/text_hint"
+                android:textSize="16sp"
+                android:layout_marginTop="6dp"/>
+
+            <!-- Stats cards -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="28dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_stat_card"
+                    android:padding="20dp"
+                    android:gravity="center"
+                    android:layout_marginEnd="12dp">
+
+                    <TextView
+                        android:id="@+id/tvStatFiles"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textColor="@color/accent"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fichiers"
+                        android:textColor="@color/text_hint"
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_stat_card"
+                    android:padding="20dp"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="8dp">
+
+                    <TextView
+                        android:id="@+id/tvStatSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textColor="@color/primary"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Espace utilisé"
+                        android:textColor="@color/text_hint"
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_stat_card"
+                    android:padding="20dp"
+                    android:gravity="center"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:id="@+id/tvStatApps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textColor="@color/warning"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Applications"
+                        android:textColor="@color/text_hint"
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Controls bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp"
+            android:gravity="center_vertical"
+            android:background="@color/bg_card">
+
+            <Spinner
+                android:id="@+id/spinnerYear"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_spinner_new"
+                android:popupBackground="@color/bg_surface"
+                android:layout_marginEnd="16dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnScan"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:text="Scanner"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/accent"
+                android:textColor="@color/bg_dark"
+                app:cornerRadius="14dp"
+                android:paddingHorizontal="32dp"/>
+        </LinearLayout>
+
+        <!-- Progress bar -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:indeterminate="true"
+            app:indicatorColor="@color/accent"
+            app:trackColor="@color/bg_surface"
+            app:trackThickness="4dp"/>
+
+        <!-- Status text -->
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="14dp"
+            android:textColor="@color/accent"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <!-- Selection summary bar -->
+        <LinearLayout
+            android:id="@+id/selectionSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp"
+            android:background="@drawable/bg_selection_bar"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvSelection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:text="Supprimer"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="14dp"
+                app:backgroundTint="@color/error"
+                android:textColor="@color/text_primary"
+                android:minWidth="0dp"
+                android:paddingHorizontal="32dp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <!-- Year groups list -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvYears"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:padding="16dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -74,7 +74,7 @@ class AppResultAdapter(
             val allPaths = result.categories.flatMap { it.files.map { f -> f.path } }
 
             cbSelectAll.setOnCheckedChangeListener(null)
-            cbSelectAll.isChecked = allPaths.all { selectedFiles.contains(it) }
+            cbSelectAll.isChecked = allPaths.isNotEmpty() && allPaths.all { selectedFiles.contains(it) }
             cbSelectAll.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     selectedFiles.addAll(allPaths)
@@ -89,16 +89,18 @@ class AppResultAdapter(
                 val categoryView = LayoutInflater.from(itemView.context)
                     .inflate(R.layout.item_category, categoriesContainer, false)
 
+                val tvCategoryEmoji = categoryView.findViewById<TextView>(R.id.tvCategoryEmoji)
                 val tvCategoryName = categoryView.findViewById<TextView>(R.id.tvCategoryName)
                 val tvCategoryInfo = categoryView.findViewById<TextView>(R.id.tvCategoryInfo)
                 val cbCategory = categoryView.findViewById<CheckBox>(R.id.cbCategory)
 
-                tvCategoryName.text = "${getCategoryEmoji(category)} ${category.name}"
-                tvCategoryInfo.text = "Fichiers: ${category.fileCount} • Taille: ${category.totalSizeFormatted}"
+                tvCategoryEmoji.text = getCategoryEmoji(category)
+                tvCategoryName.text = category.name
+                tvCategoryInfo.text = "${category.fileCount} fichiers • ${category.totalSizeFormatted}"
 
                 val categoryPaths = category.files.map { it.path }
                 cbCategory.setOnCheckedChangeListener(null)
-                cbCategory.isChecked = categoryPaths.all { selectedFiles.contains(it) }
+                cbCategory.isChecked = categoryPaths.isNotEmpty() && categoryPaths.all { selectedFiles.contains(it) }
                 cbCategory.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
                         selectedFiles.addAll(categoryPaths)

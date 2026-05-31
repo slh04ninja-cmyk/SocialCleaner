@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#e94560</color>
-    <color name="primary_dark">#c81e45</color>
-    <color name="background">#1a1a2e</color>
-    <color name="surface">#16213e</color>
-    <color name="accent">#0f3460</color>
-    <color name="text_primary">#ffffff</color>
-    <color name="text_secondary">#a0a0a0</color>
+    <!-- Main colors -->
+    <color name="primary">#FF6B6B</color>
+    <color name="primary_dark">#E55555</color>
+    <color name="primary_light">#FF8E8E</color>
+    <color name="accent">#4ECDC4</color>
+    <color name="accent_dark">#3DBDB5</color>
+
+    <!-- Backgrounds -->
+    <color name="bg_dark">#0D0D1A</color>
+    <color name="bg_card">#1A1A2E</color>
+    <color name="bg_card_inner">#16213E</color>
+    <color name="bg_header">#0F0F23</color>
+    <color name="bg_surface">#1E1E3A</color>
+    <color name="bg_surface_light">#252545</color>
+
+    <!-- Text -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0CC</color>
+    <color name="text_hint">#6C6C8A</color>
+
+    <!-- Status -->
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FFD93D</color>
+    <color name="error">#FF6B6B</color>
+    <color name="info">#6C63FF</color>
+
+    <!-- Social colors -->
+    <color name="whatsapp_color">#25D366</color>
+    <color name="telegram_color">#0088CC</color>
+    <color name="facebook_color">#1877F2</color>
+    <color name="instagram_color">#E4405F</color>
+    <color name="snapchat_color">#FFFC00</color>
+    <color name="tiktok_color">#FE2C55</color>
+    <color name="messenger_color">#0078FF</color>
+    <color name="signal_color">#3A76F0</color>
+
+    <!-- Checkbox -->
+    <color name="checkbox_selected">#4ECDC4</color>
+    <color name="checkbox_unselected">#3A3A5C</color>
 </resources>

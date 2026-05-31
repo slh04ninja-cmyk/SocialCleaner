@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.socialcleaner.model.*
 import com.socialcleaner.scanner.AppRegistry
 import com.socialcleaner.scanner.MediaScanner
@@ -30,11 +31,13 @@ import java.util.Calendar
 class MainActivity : AppCompatActivity() {
 
     private lateinit var rvYears: RecyclerView
-    private lateinit var progressBar: ProgressBar
+    private lateinit var progressBar: View
     private lateinit var tvStatus: TextView
-    private lateinit var tvTotalSummary: TextView
-    private lateinit var btnScan: Button
-    private lateinit var btnDelete: Button
+    private lateinit var tvStatFiles: TextView
+    private lateinit var tvStatSize: TextView
+    private lateinit var tvStatApps: TextView
+    private lateinit var btnScan: MaterialButton
+    private lateinit var btnDelete: MaterialButton
     private lateinit var spinnerYear: Spinner
     private lateinit var selectionSummary: LinearLayout
     private lateinit var tvSelection: TextView
@@ -62,7 +65,9 @@ class MainActivity : AppCompatActivity() {
         rvYears = findViewById(R.id.rvYears)
         progressBar = findViewById(R.id.progressBar)
         tvStatus = findViewById(R.id.tvStatus)
-        tvTotalSummary = findViewById(R.id.tvTotalSummary)
+        tvStatFiles = findViewById(R.id.tvStatFiles)
+        tvStatSize = findViewById(R.id.tvStatSize)
+        tvStatApps = findViewById(R.id.tvStatApps)
         btnScan = findViewById(R.id.btnScan)
         btnDelete = findViewById(R.id.btnDelete)
         spinnerYear = findViewById(R.id.spinnerYear)
@@ -128,7 +133,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startScan() {
         progressBar.visibility = View.VISIBLE
-        tvStatus.text = "Analyse en cours..."
+        tvStatus.text = "⏳ Analyse en cours..."
         tvStatus.visibility = View.VISIBLE
         btnScan.isEnabled = false
         btnDelete.visibility = View.GONE
@@ -141,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
                 for ((index, app) in apps.withIndex()) {
                     withContext(Dispatchers.Main) {
-                        tvStatus.text = "Scan ${app.name}... (${index + 1}/${apps.size})"
+                        tvStatus.text = "🔍 Scan ${app.name}... (${index + 1}/${apps.size})"
                     }
 
                     val scanResults = scanner.scanApp(app, selectedYear)
@@ -162,8 +167,10 @@ class MainActivity : AppCompatActivity() {
         btnScan.isEnabled = true
 
         if (results.isEmpty()) {
-            tvStatus.text = "Aucune donnée trouvée"
-            tvTotalSummary.text = ""
+            tvStatus.text = "😕 Aucune donnée trouvée"
+            tvStatFiles.text = "0"
+            tvStatSize.text = "0"
+            tvStatApps.text = "0"
             yearAdapter.setData(emptyList())
             btnDelete.visibility = View.GONE
             selectionSummary.visibility = View.GONE
@@ -172,8 +179,13 @@ class MainActivity : AppCompatActivity() {
 
         val totalFiles = results.sumOf { it.totalFiles }
         val totalSize = results.sumOf { it.totalSize }
+        val appCount = results.map { it.appName }.distinct().size
+
         tvStatus.text = "✅ Scan terminé"
-        tvTotalSummary.text = "Total: $totalFiles fichiers • ${formatSize(totalSize)}"
+        tvStatus.setTextColor(resources.getColor(R.color.success, theme))
+        tvStatFiles.text = totalFiles.toString()
+        tvStatSize.text = formatSize(totalSize)
+        tvStatApps.text = appCount.toString()
 
         val yearGroups = results.groupBy { it.year }
             .map { (year, apps) -> YearGroup(year, apps) }
@@ -188,7 +200,6 @@ class MainActivity : AppCompatActivity() {
         val count = selectedFiles.size
         var totalSize = 0L
 
-        // Calculate total size of selected files
         for (result in allResults) {
             for (category in result.categories) {
                 for (file in category.files) {
@@ -201,7 +212,7 @@ class MainActivity : AppCompatActivity() {
 
         if (count > 0) {
             selectionSummary.visibility = View.VISIBLE
-            tvSelection.text = "Sélection: $count fichiers • ${formatSize(totalSize)}"
+            tvSelection.text = "✅ $count fichiers • ${formatSize(totalSize)}"
         } else {
             selectionSummary.visibility = View.GONE
         }
@@ -211,11 +222,10 @@ class MainActivity : AppCompatActivity() {
         val selectedFiles = yearAdapter.getAllSelectedFiles()
 
         if (selectedFiles.isEmpty()) {
-            Toast.makeText(this, "Sélectionnez d'abord des fichiers à supprimer", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "⚠️ Sélectionnez d'abord des fichiers", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Calculate what will be deleted
         var deleteSize = 0L
         val appNames = mutableSetOf<String>()
         val years = mutableSetOf<Int>()
@@ -235,23 +245,23 @@ class MainActivity : AppCompatActivity() {
         val yearList = years.sorted().joinToString(", ")
         val appList = appNames.joinToString(", ")
 
-        AlertDialog.Builder(this)
-            .setTitle("⚠️ Suppression")
+        AlertDialog.Builder(this, R.style.ThemeOverlay_MaterialComponents_Dialog_Alert)
+            .setTitle("⚠️ Confirmation")
             .setMessage(
-                "App: $appList\n" +
-                "Année(s): $yearList\n" +
-                "Fichiers: ${selectedFiles.size}\n" +
-                "Taille: ${formatSize(deleteSize)}\n\n" +
-                "Cette action est irréversible."
+                "📱 Apps: $appList\n" +
+                "📅 Année(s): $yearList\n" +
+                "📁 Fichiers: ${selectedFiles.size}\n" +
+                "💾 Taille: ${formatSize(deleteSize)}\n\n" +
+                "Cette action est irréversible !"
             )
-            .setPositiveButton("Supprimer") { _, _ -> deleteSelected(selectedFiles) }
+            .setPositiveButton("🗑️ Supprimer") { _, _ -> deleteSelected(selectedFiles) }
             .setNegativeButton("Annuler", null)
             .show()
     }
 
     private fun deleteSelected(filesToDelete: Set<String>) {
         progressBar.visibility = View.VISIBLE
-        tvStatus.text = "Suppression en cours..."
+        tvStatus.text = "🗑️ Suppression en cours..."
 
         lifecycleScope.launch {
             var deletedCount = 0
@@ -272,12 +282,13 @@ class MainActivity : AppCompatActivity() {
             }
 
             progressBar.visibility = View.GONE
-            tvStatus.text = "✅ $deletedCount fichiers supprimés • ${formatSize(deletedSize)} libérés"
+            tvStatus.text = "✅ $deletedCount supprimés • ${formatSize(deletedSize)} libérés"
+            tvStatus.setTextColor(resources.getColor(R.color.success, theme))
             btnDelete.visibility = View.GONE
             selectionSummary.visibility = View.GONE
 
             Toast.makeText(this@MainActivity,
-                "$deletedCount fichiers supprimés", Toast.LENGTH_LONG).show()
+                "✅ $deletedCount fichiers supprimés", Toast.LENGTH_LONG).show()
 
             startScan()
         }

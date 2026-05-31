@@ -1,14 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.SocialCleaner" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#e94560</item>
-        <item name="colorPrimaryVariant">#c81e45</item>
-        <item name="colorOnPrimary">#ffffff</item>
-        <item name="colorSecondary">#0f3460</item>
-        <item name="colorSecondaryVariant">#16213e</item>
-        <item name="colorOnSecondary">#ffffff</item>
-        <item name="android:statusBarColor">#0f3460</item>
-        <item name="android:navigationBarColor">#1a1a2e</item>
-        <item name="android:windowBackground">#1a1a2e</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="android:statusBarColor">@color/bg_dark</item>
+        <item name="android:navigationBarColor">@color/bg_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- Button styles -->
+    <style name="ButtonPrimary" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="elevation">4dp</item>
+    </style>
+
+    <style name="ButtonDelete" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/error</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="ButtonOutline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/accent</item>
+        <item name="android:textColor">@color/accent</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <!-- Card styles -->
+    <style name="CardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/bg_card</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">8dp</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <style name="CardInnerStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/bg_card_inner</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="contentPadding">12dp</item>
+    </style>
+
+    <!-- Text styles -->
+    <style name="TextTitle">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextHeading">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextBody">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextCaption">
+        <item name="android:textColor">@color/text_hint</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- Spinner style -->
+    <style name="SpinnerStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/bg_surface</item>
+        <item name="boxStrokeColor">@color/accent</item>
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+    </style>
+
+    <!-- Category chip style -->
+    <style name="CategoryChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/bg_surface_light</item>
+        <item name="chipCornerRadius">20dp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="chipMinHeight">36dp</item>
+        <item name="checkedIconVisible">false</item>
+    </style>
+
+    <!-- Checkbox style -->
+    <style name="CustomCheckbox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/accent</item>
+        <item name="android:textColor">@color/text_primary</item>
     </style>
 </resources>

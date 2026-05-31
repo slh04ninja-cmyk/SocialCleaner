@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginBottom="8dp"
-    android:background="@drawable/bg_card_inner"
-    android:padding="12dp">
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_app_card"
+    android:padding="14dp">
 
     <!-- App header -->
     <LinearLayout
@@ -14,34 +14,50 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/ivAppIcon"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginEnd="12dp"/>
+        <!-- App icon with background -->
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_icon_circle">
 
-        <TextView
-            android:id="@+id/tvAppName"
+            <ImageView
+                android:id="@+id/ivAppIcon"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="#ffffff"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvAppSummary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#a0a0a0"
-            android:textSize="11sp"
-            android:layout_marginEnd="8dp"/>
+            <TextView
+                android:id="@+id/tvAppName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvAppSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_hint"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
 
         <CheckBox
             android:id="@+id/cbSelectAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="#e94560"/>
+            android:buttonTint="@color/accent"
+            android:scaleX="1.2"
+            android:scaleY="1.2"/>
     </LinearLayout>
 
     <!-- Categories -->
@@ -50,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="8dp"
-        android:paddingStart="48dp"/>
+        android:layout_marginTop="10dp"
+        android:paddingStart="56dp"/>
 
 </LinearLayout>

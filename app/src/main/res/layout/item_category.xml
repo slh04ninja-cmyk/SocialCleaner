@@ -4,30 +4,50 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:paddingVertical="4dp">
+    android:paddingVertical="6dp"
+    android:paddingHorizontal="8dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/bg_category_item">
 
+    <!-- Category emoji/icon -->
     <TextView
-        android:id="@+id/tvCategoryName"
+        android:id="@+id/tvCategoryEmoji"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:background="@drawable/bg_emoji_circle"
+        android:layout_marginEnd="10dp"/>
+
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textColor="#d0d0d0"
-        android:textSize="13sp"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvCategoryInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#808080"
-        android:textSize="11sp"
-        android:layout_marginEnd="8dp"/>
+        <TextView
+            android:id="@+id/tvCategoryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_primary"
+            android:textSize="13sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvCategoryInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_hint"
+            android:textSize="11sp"
+            android:layout_marginTop="1dp"/>
+    </LinearLayout>
 
     <CheckBox
         android:id="@+id/cbCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:buttonTint="#e94560"
-        android:scaleX="0.8"
-        android:scaleY="0.8"/>
+        android:buttonTint="@color/accent"
+        android:scaleX="1.1"
+        android:scaleY="1.1"/>
 
 </LinearLayout>

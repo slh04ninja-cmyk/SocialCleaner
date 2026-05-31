@@ -18,13 +18,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v4
-
-    - name: Generate Gradle Wrapper
+    - name: Download Gradle
       run: |
+        wget -q https://services.gradle.org/distributions/gradle-8.5-bin.zip
+        unzip -q gradle-8.5-bin.zip
+        export PATH=$PWD/gradle-8.5/bin:$PATH
         gradle wrapper --gradle-version 8.5
         chmod +x gradlew
+        rm -rf gradle-8.5 gradle-8.5-bin.zip
 
     - name: Build Debug APK
       run: ./gradlew assembleDebug

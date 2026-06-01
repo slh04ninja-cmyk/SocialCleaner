@@ -178,11 +178,15 @@ class MediaScanner {
         val yearGroups = mutableMapOf<Int, MutableList<MediaFile>>()
 
         val seenPaths = mutableSetOf<String>()
+        var totalFound = 0
         for (mediaPath in app.mediaPaths) {
             for (basePath in basePaths) {
                 val fullPath = File(basePath, mediaPath)
+                android.util.Log.d("SocialCleaner", "Scanning ${app.name}: ${fullPath.absolutePath} exists=${fullPath.exists()}")
                 if (fullPath.exists() && fullPath.isDirectory) {
                     scanDirectory(fullPath, app.categories, yearGroups, seenPaths)
+                    totalFound = yearGroups.values.sumOf { it.size }
+                    android.util.Log.d("SocialCleaner", "  → Found $totalFound files so far")
                 }
             }
         }

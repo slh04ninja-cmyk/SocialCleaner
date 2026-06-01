@@ -2,6 +2,7 @@ package com.socialcleaner
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import com.google.android.material.color.DynamicColors
+import java.util.Locale
 
 class OnboardingActivity : AppCompatActivity() {
 
@@ -25,14 +27,29 @@ class OnboardingActivity : AppCompatActivity() {
     private lateinit var pageIndicator: TextView
     private lateinit var tvSteps: TextView
 
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
+        val lang = prefs.getString("language", "fr") ?: "fr"
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = Configuration(newBase.resources.configuration)
+        config.setLocale(locale)
+        super.attachBaseContext(newBase.createConfigurationContext(config))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         DynamicColors.applyToActivityIfAvailable(this)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
+        val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
+        val isDarkMode = prefs.getBoolean("dark_mode", false)
+        AppCompatDelegate.setDefaultNightMode(
+            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
+        )
 
         super.onCreate(savedInstanceState)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
 
-        val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
         if (prefs.getBoolean("onboarding_done", false)) {
             goToMain()
             return

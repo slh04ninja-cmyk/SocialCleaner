@@ -35,6 +35,23 @@
     <string name="select_files_first">اختر الملفات أولاً</string>
     <string name="selection_summary">%1$d ملفات • %2$s</string>
 
+    <string name="unit_bytes">%d بايت</string>
+    <string name="unit_ko">%.0f كيلوبايت</string>
+    <string name="unit_mo">%.1f ميجابايت</string>
+    <string name="unit_go">%.2f جيجابايت</string>
+
+    <string name="files_and_size">%1$d ملفات • %2$s</string>
+
+    <string name="cat_images">صور</string>
+    <string name="cat_videos">مقاطع فيديو</string>
+    <string name="cat_documents">مستندات</string>
+    <string name="cat_voice_notes">ملاحظات صوتية</string>
+    <string name="cat_audio">صوتيات</string>
+    <string name="cat_stickers">ملصقات</string>
+    <string name="cat_video_notes">ملاحظات فيديو</string>
+    <string name="cat_gifs">صور متحركة</string>
+    <string name="cat_others">أخرى</string>
+
     <string name="confirm_title">تأكيد</string>
     <string name="confirm_message">التطبيقات: %1$s\nالسنة: %2$s\nالملفات: %3$d\nالحجم: %4$s\n\nهذا الإجراء لا رجوع فيه!</string>
 

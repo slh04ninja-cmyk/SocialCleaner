@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -34,6 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.Calendar
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -65,16 +67,35 @@ class MainActivity : AppCompatActivity() {
     private lateinit var notifHelper: NotificationHelper
     private var allResults = listOf<AppScanResult>()
     private var selectedYear: Int? = null
+    private var isDarkMode = false
 
     companion object {
         private const val STORAGE_PERMISSION_CODE = 100
         private const val MANAGE_STORAGE_CODE = 101
         private const val NOTIF_PERMISSION_CODE = 102
+        private const val STATE_RESULTS = "scan_results"
+        private const val STATE_YEAR = "selected_year"
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
+        val lang = prefs.getString("language", "fr") ?: "fr"
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = Configuration(newBase.resources.configuration)
+        config.setLocale(locale)
+        super.attachBaseContext(newBase.createConfigurationContext(config))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         DynamicColors.applyToActivityIfAvailable(this)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
+        val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
+        isDarkMode = prefs.getBoolean("dark_mode", false)
+        AppCompatDelegate.setDefaultNightMode(
+            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
+        )
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -87,10 +108,22 @@ class MainActivity : AppCompatActivity() {
         setupYearSpinner()
         checkPermissions()
 
+        // Restore saved state
+        if (savedInstanceState != null) {
+            selectedYear = savedInstanceState.getInt(STATE_YEAR, -1).let {
+                if (it == -1) null else it
+            }
+        }
+
         // Handle notification cleanup action
         if (intent.getBooleanExtra("auto_cleanup", false)) {
             startScan()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(STATE_YEAR, selectedYear ?: -1)
     }
 
     private fun initViews() {
@@ -148,25 +181,31 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Dark mode toggle
-        val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
-        val isDarkMode = prefs.getBoolean("dark_mode", false)
         switchDarkMode.isChecked = isDarkMode
 
         menuTheme.setOnClickListener {
             switchDarkMode.toggle()
-            toggleDarkMode(switchDarkMode.isChecked)
         }
         switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
-            toggleDarkMode(isChecked)
+            if (isChecked != isDarkMode) {
+                isDarkMode = isChecked
+                val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
+                prefs.edit().putBoolean("dark_mode", isChecked).apply()
+                AppCompatDelegate.setDefaultNightMode(
+                    if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
+                    else AppCompatDelegate.MODE_NIGHT_NO
+                )
+                // recreate() is called automatically by AppCompatDelegate
+            }
         }
 
         // Notifications toggle
+        val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
         val notifEnabled = prefs.getBoolean("notifications_enabled", true)
         switchNotifications.isChecked = notifEnabled
 
         menuNotifications.setOnClickListener {
             switchNotifications.toggle()
-            toggleNotifications(switchNotifications.isChecked)
         }
         switchNotifications.setOnCheckedChangeListener { _, isChecked ->
             toggleNotifications(isChecked)
@@ -198,29 +237,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun setLocale(languageCode: String) {
         val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
+        val currentLang = prefs.getString("language", "fr") ?: "fr"
+
+        if (currentLang == languageCode) return // Already set
+
         prefs.edit().putString("language", languageCode).apply()
 
         // Apply locale
-        val locale = java.util.Locale(languageCode)
-        java.util.Locale.setDefault(locale)
-        val config = resources.configuration
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = Configuration(resources.configuration)
         config.setLocale(locale)
         config.setLayoutDirection(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
 
-        // Recreate activity to apply changes
+        // Recreate with new locale
         recreate()
-    }
-
-    private fun toggleDarkMode(enabled: Boolean) {
-        val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
-        prefs.edit().putBoolean("dark_mode", enabled).apply()
-
-        if (enabled) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
     }
 
     private fun toggleNotifications(enabled: Boolean) {
@@ -354,7 +385,7 @@ class MainActivity : AppCompatActivity() {
         tvStatus.text = getString(R.string.scan_complete)
         tvStatus.setTextColor(resources.getColor(R.color.success, theme))
         tvStatFiles.text = totalFiles.toString()
-        tvStatSize.text = formatSize(totalSize)
+        tvStatSize.text = formatSize(this, totalSize)
         tvStatApps.text = appCount.toString()
 
         val yearGroups = results.groupBy { it.year }
@@ -390,7 +421,7 @@ class MainActivity : AppCompatActivity() {
 
         if (count > 0) {
             selectionSummary.visibility = View.VISIBLE
-            tvSelection.text = getString(R.string.selection_summary, count, formatSize(totalSize))
+            tvSelection.text = getString(R.string.selection_summary, count, formatSize(this, totalSize))
         } else {
             selectionSummary.visibility = View.GONE
         }
@@ -423,9 +454,9 @@ class MainActivity : AppCompatActivity() {
         val yearList = years.sorted().joinToString(", ")
         val appList = appNames.joinToString(", ")
 
-        android.app.AlertDialog.Builder(this)
+        AlertDialog.Builder(this)
             .setTitle(getString(R.string.confirm_title))
-            .setMessage(getString(R.string.confirm_message, appList, yearList, selectedFiles.size, formatSize(deleteSize)))
+            .setMessage(getString(R.string.confirm_message, appList, yearList, selectedFiles.size, formatSize(this, deleteSize)))
             .setPositiveButton(getString(R.string.confirm)) { _, _ -> deleteSelected(selectedFiles) }
             .setNegativeButton(getString(R.string.cancel), null)
             .show()
@@ -458,7 +489,7 @@ class MainActivity : AppCompatActivity() {
             lottieScan.cancelAnimation()
             lottieScan.visibility = View.GONE
             progressBar.visibility = View.GONE
-            tvStatus.text = getString(R.string.delete_complete, deletedCount, formatSize(deletedSize))
+            tvStatus.text = getString(R.string.delete_complete, deletedCount, formatSize(this@MainActivity, deletedSize))
             tvStatus.setTextColor(resources.getColor(R.color.success, theme))
             btnDelete.visibility = View.GONE
             selectionSummary.visibility = View.GONE

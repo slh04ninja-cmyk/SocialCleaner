@@ -40,6 +40,26 @@
     <string name="select_files_first">Sélectionnez d\'abord des fichiers</string>
     <string name="selection_summary">%1$d fichiers • %2$s</string>
 
+    <!-- File size units -->
+    <string name="unit_bytes">%d o</string>
+    <string name="unit_ko">%.0f Ko</string>
+    <string name="unit_mo">%.1f Mo</string>
+    <string name="unit_go">%.2f Go</string>
+
+    <!-- Scan details (used in adapters) -->
+    <string name="files_and_size">%1$d fichiers • %2$s</string>
+
+    <!-- Category names -->
+    <string name="cat_images">Images</string>
+    <string name="cat_videos">Vidéos</string>
+    <string name="cat_documents">Documents</string>
+    <string name="cat_voice_notes">Notes vocales</string>
+    <string name="cat_audio">Audio</string>
+    <string name="cat_stickers">Stickers</string>
+    <string name="cat_video_notes">Vidéo Notes</string>
+    <string name="cat_gifs">GIFs</string>
+    <string name="cat_others">Autres</string>
+
     <!-- Delete dialog -->
     <string name="confirm_title">Confirmation</string>
     <string name="confirm_message">Apps: %1$s\nAnnée(s): %2$s\nFichiers: %3$d\nTaille: %4$s\n\nCette action est irréversible !</string>

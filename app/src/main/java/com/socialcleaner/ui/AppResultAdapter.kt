@@ -7,11 +7,11 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.socialcleaner.R
 import com.socialcleaner.model.AppScanResult
 import com.socialcleaner.model.MediaCategory
+import com.socialcleaner.model.formatSize
 
 class AppResultAdapter(
     private val onSelectionChanged: () -> Unit
@@ -54,8 +54,10 @@ class AppResultAdapter(
         private val cbSelectAll: CheckBox = itemView.findViewById(R.id.cbSelectAll)
 
         fun bind(result: AppScanResult) {
+            val ctx = itemView.context
             tvAppName.text = result.appName
-            tvAppSummary.text = "${result.totalFiles} fichiers • ${result.totalSizeFormatted}"
+            tvAppSummary.text = ctx.getString(R.string.files_and_size,
+                result.totalFiles, formatSize(ctx, result.totalSize))
 
             val iconRes = when (result.appIcon) {
                 "whatsapp" -> R.drawable.ic_whatsapp
@@ -86,7 +88,7 @@ class AppResultAdapter(
             }
 
             for (category in result.categories) {
-                val categoryView = LayoutInflater.from(itemView.context)
+                val categoryView = LayoutInflater.from(ctx)
                     .inflate(R.layout.item_category, categoriesContainer, false)
 
                 val tvCategoryEmoji = categoryView.findViewById<TextView>(R.id.tvCategoryEmoji)
@@ -95,8 +97,9 @@ class AppResultAdapter(
                 val cbCategory = categoryView.findViewById<CheckBox>(R.id.cbCategory)
 
                 tvCategoryEmoji.text = getCategoryEmoji(category)
-                tvCategoryName.text = category.name
-                tvCategoryInfo.text = "${category.fileCount} fichiers • ${category.totalSizeFormatted}"
+                tvCategoryName.text = category.getLocalizedName(ctx)
+                tvCategoryInfo.text = ctx.getString(R.string.files_and_size,
+                    category.fileCount, formatSize(ctx, category.totalSize))
 
                 val categoryPaths = category.files.map { it.path }
                 cbCategory.setOnCheckedChangeListener(null)
@@ -117,15 +120,15 @@ class AppResultAdapter(
 
         private fun getCategoryEmoji(category: MediaCategory): String {
             return when (category.icon) {
-                "image" -> "🖼️"
-                "video" -> "🎬"
-                "document" -> "📄"
-                "mic" -> "🎤"
-                "music" -> "🎵"
-                "sticker" -> "😀"
-                "video_note" -> "📹"
-                "gif" -> "🎞️"
-                else -> "📁"
+                "image" -> "\uD83D\uDDBC\uFE0F"
+                "video" -> "\uD83C\uDFAC"
+                "document" -> "\uD83D\uDCC4"
+                "mic" -> "\uD83C\uDFA4"
+                "music" -> "\uD83C\uDFB5"
+                "sticker" -> "\uD83D\uDE00"
+                "video_note" -> "\uD83D\uDCF9"
+                "gif" -> "\uD83C\uDFA8"
+                else -> "\uD83D\uDCC1"
             }
         }
     }

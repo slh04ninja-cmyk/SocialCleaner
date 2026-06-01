@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.socialcleaner.R
 import com.socialcleaner.model.YearGroup
+import com.socialcleaner.model.formatSize
 
 class YearAdapter(
     private val onSelectionChanged: () -> Unit
@@ -56,8 +57,10 @@ class YearAdapter(
         private val headerLayout: View = itemView.findViewById(R.id.yearHeaderLayout)
 
         fun bind(yearGroup: YearGroup) {
+            val ctx = itemView.context
             tvYear.text = yearGroup.year.toString()
-            tvYearSummary.text = "${yearGroup.totalFiles} fichiers • ${com.socialcleaner.model.formatSize(yearGroup.totalSize)}"
+            tvYearSummary.text = ctx.getString(R.string.files_and_size,
+                yearGroup.totalFiles, formatSize(ctx, yearGroup.totalSize))
 
             val isExpanded = expandedYears.contains(yearGroup.year)
             rvApps.visibility = if (isExpanded) View.VISIBLE else View.GONE
@@ -76,7 +79,7 @@ class YearAdapter(
 
             if (isExpanded) {
                 val appAdapter = AppResultAdapter(onSelectionChanged)
-                rvApps.layoutManager = LinearLayoutManager(itemView.context)
+                rvApps.layoutManager = LinearLayoutManager(ctx)
                 rvApps.adapter = appAdapter
                 appAdapter.setData(yearGroup.apps)
                 appAdapters[yearGroup.year] = appAdapter

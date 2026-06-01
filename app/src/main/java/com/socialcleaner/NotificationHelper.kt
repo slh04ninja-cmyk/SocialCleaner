@@ -8,7 +8,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import java.text.DecimalFormat
+import com.socialcleaner.model.formatSize
 
 class NotificationHelper(private val context: Context) {
 
@@ -38,7 +38,7 @@ class NotificationHelper(private val context: Context) {
         val prefs = context.getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
         if (!prefs.getBoolean("notifications_enabled", true)) return
 
-        val sizeStr = formatSize(freedSize)
+        val sizeStr = formatSize(context, freedSize)
 
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -68,16 +68,6 @@ class NotificationHelper(private val context: Context) {
             NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, builder.build())
         } catch (e: SecurityException) {
             // Notification permission not granted
-        }
-    }
-
-    private fun formatSize(bytes: Long): String {
-        val df = DecimalFormat("#.##")
-        return when {
-            bytes < 1024 -> "$bytes o"
-            bytes < 1024 * 1024 -> "${df.format(bytes / 1024.0)} Ko"
-            bytes < 1024 * 1024 * 1024 -> "${df.format(bytes / (1024.0 * 1024))} Mo"
-            else -> "${df.format(bytes / (1024.0 * 1024 * 1024))} Go"
         }
     }
 }

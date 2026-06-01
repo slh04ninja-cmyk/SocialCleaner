@@ -25,7 +25,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -34,7 +35,8 @@
                     android:textColor="@color/text_on_gradient"
                     android:textSize="28sp"
                     android:textStyle="bold"
-                    android:fontFamily="sans-serif-medium"/>
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -42,7 +44,8 @@
                     android:text="Libérez l'espace de votre téléphone"
                     android:textColor="@color/text_on_gradient_secondary"
                     android:textSize="12sp"
-                    android:layout_marginTop="4dp"/>
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"/>
             </LinearLayout>
 
             <!-- Stats cards -->
@@ -76,7 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Fichiers"
-                        android:textColor="@color/text_on_gradient_secondary"
+                        android:textColor="@color/text_hint"
                         android:textSize="11sp"
                         android:layout_marginTop="2dp"/>
                 </LinearLayout>
@@ -104,7 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Espace utilisé"
-                        android:textColor="@color/text_on_gradient_secondary"
+                        android:textColor="@color/text_hint"
                         android:textSize="11sp"
                         android:layout_marginTop="2dp"/>
                 </LinearLayout>
@@ -132,7 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Applications"
-                        android:textColor="@color/text_on_gradient_secondary"
+                        android:textColor="@color/text_hint"
                         android:textSize="11sp"
                         android:layout_marginTop="2dp"/>
                 </LinearLayout>

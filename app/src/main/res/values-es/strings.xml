@@ -1,68 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Social Cleaner</string>
-    <string name="app_description">Aplicación de limpieza de almacenamiento para archivos multimedia de redes sociales</string>
-    <string name="permission_description">Acceso al almacenamiento para analizar y eliminar archivos de aplicaciones de redes sociales</string>
-
-    <string name="header_subtitle">Libera el espacio de tu teléfono</string>
-
-    <string name="scan">Escanear</string>
-    <string name="delete">Eliminar</string>
-    <string name="cancel">Cancelar</string>
-    <string name="confirm">Eliminar</string>
-    <string name="next">Siguiente</string>
-    <string name="start">Comenzar</string>
-    <string name="skip">Omitir</string>
-    <string name="menu">Menú</string>
-
-    <string name="files">Archivos</string>
-    <string name="space_used_label">Espacio usado</string>
-    <string name="apps_label">Aplicaciones</string>
-    <string name="size">Tamaño</string>
-    <string name="files_count">%d archivos</string>
-    <string name="space_used">%s usado</string>
-    <string name="apps_count">%d aplicaciones</string>
-
-    <string name="all_years">Todos los años</string>
-
-    <string name="scanning">Escaneando…</string>
-    <string name="scan_app">Escaneando %1$s… (%2$d/%3$d)</string>
-    <string name="scan_complete">Escaneo completo</string>
-    <string name="no_data">No se encontraron datos</string>
-    <string name="delete_progress">Eliminando…</string>
-    <string name="delete_complete">%d eliminados • %s liberados</string>
-    <string name="delete_toast">%d archivos eliminados</string>
-    <string name="select_files_first">Seleccione archivos primero</string>
-    <string name="selection_summary">%1$d archivos • %2$s</string>
-
-    <string name="confirm_title">Confirmación</string>
-    <string name="confirm_message">Apps: %1$s\nAño(s): %2$s\nArchivos: %3$d\nTamaño: %4$s\n\n¡Esta acción es irreversible!</string>
-
-    <string name="onboarding_analyze_title">Analiza tus archivos</string>
-    <string name="onboarding_analyze_desc">Toca Escanear para analizar los archivos multimedia de tus redes sociales. La app detecta imágenes, vídeos, documentos y audio.</string>
-    <string name="onboarding_analyze_step1">1. Selecciona un año o todos</string>
-    <string name="onboarding_analyze_step2">2. Toca Escanear</string>
-    <string name="onboarding_analyze_step3">3. Consulta los resultados por categoría</string>
-    <string name="onboarding_delete_title">Elimina con seguridad</string>
-    <string name="onboarding_delete_desc">Selecciona las categorías que deseas eliminar y toca Eliminar. Mantienes el control total sobre cada archivo.</string>
-    <string name="onboarding_delete_step1">1. Marca las categorías deseadas</string>
-    <string name="onboarding_delete_step2">2. Revisa la selección arriba</string>
-    <string name="onboarding_delete_step3">3. Toca Eliminar</string>
-    <string name="page_indicator">%1$d / %2$d</string>
-
-    <string name="settings">Ajustes</string>
-    <string name="language">Idioma</string>
-    <string name="select_language">Seleccionar idioma</string>
-    <string name="dark_mode">Modo oscuro</string>
-    <string name="notifications">Notificaciones</string>
-    <string name="notif_enabled">Notificaciones activadas</string>
-    <string name="notif_disabled">Notificaciones desactivadas</string>
-    <string name="version">Social Cleaner v8.0</string>
-
-    <string name="notif_channel_name">Social Cleaner</string>
-    <string name="notif_channel_desc">Notificaciones de limpieza</string>
-    <string name="notif_title">Liberar %s después de limpiar</string>
-    <string name="notif_text">Toca para limpiar archivos innecesarios</string>
-    <string name="notif_action">LIMPIAR</string>
-    <string name="notif_cleanup_started">Limpieza en progreso…</string>
-</resources>
+     1|<?xml version="1.0" encoding="utf-8"?>
+     2|<resources>
+     3|    <string name="app_name">Social Cleaner</string>
+     4|    <string name="app_description">Aplicación de limpieza de almacenamiento para archivos multimedia de redes sociales</string>
+     5|    <string name="permission_description">Acceso al almacenamiento para analizar y eliminar archivos de aplicaciones de redes sociales</string>
+     6|
+     7|    <string name="header_subtitle">Libera el espacio de tu teléfono</string>
+     8|
+     9|    <string name="scan">Escanear</string>
+    10|    <string name="delete">Eliminar</string>
+    11|    <string name="cancel">Cancelar</string>
+    12|    <string name="confirm">Eliminar</string>
+    13|    <string name="next">Siguiente</string>
+    14|    <string name="start">Comenzar</string>
+    15|    <string name="skip">Omitir</string>
+    16|    <string name="menu">Menú</string>
+    17|
+    18|    <string name="files">Archivos</string>
+    19|    <string name="space_used_label">Espacio usado</string>
+    20|    <string name="apps_label">Aplicaciones</string>
+    21|    <string name="size">Tamaño</string>
+    22|    <string name="files_count">%d archivos</string>
+    23|    <string name="space_used">%s usado</string>
+    24|    <string name="apps_count">%d aplicaciones</string>
+    25|
+    26|    <string name="all_years">Todos los años</string>
+    27|
+    28|    <string name="scanning">Escaneando…</string>
+    29|    <string name="scan_app">Escaneando %1$s… (%2$d/%3$d)</string>
+    30|    <string name="scan_complete">Escaneo completo</string>
+    31|    <string name="no_data">No se encontraron datos</string>
+    32|    <string name="delete_progress">Eliminando…</string>
+    33|    <string name="delete_complete">%1$d eliminados • %2$s liberados</string>
+    34|    <string name="delete_toast">%d archivos eliminados</string>
+    35|    <string name="select_files_first">Seleccione archivos primero</string>
+    36|    <string name="selection_summary">%1$d archivos • %2$s</string>
+    37|
+    38|    <string name="confirm_title">Confirmación</string>
+    39|    <string name="confirm_message">Apps: %1$s\nAño(s): %2$s\nArchivos: %3$d\nTamaño: %4$s\n\n¡Esta acción es irreversible!</string>
+    40|
+    41|    <string name="onboarding_analyze_title">Analiza tus archivos</string>
+    42|    <string name="onboarding_analyze_desc">Toca Escanear para analizar los archivos multimedia de tus redes sociales. La app detecta imágenes, vídeos, documentos y audio.</string>
+    43|    <string name="onboarding_analyze_step1">1. Selecciona un año o todos</string>
+    44|    <string name="onboarding_analyze_step2">2. Toca Escanear</string>
+    45|    <string name="onboarding_analyze_step3">3. Consulta los resultados por categoría</string>
+    46|    <string name="onboarding_delete_title">Elimina con seguridad</string>
+    47|    <string name="onboarding_delete_desc">Selecciona las categorías que deseas eliminar y toca Eliminar. Mantienes el control total sobre cada archivo.</string>
+    48|    <string name="onboarding_delete_step1">1. Marca las categorías deseadas</string>
+    49|    <string name="onboarding_delete_step2">2. Revisa la selección arriba</string>
+    50|    <string name="onboarding_delete_step3">3. Toca Eliminar</string>
+    51|    <string name="page_indicator">%1$d / %2$d</string>
+    52|
+    53|    <string name="settings">Ajustes</string>
+    54|    <string name="language">Idioma</string>
+    55|    <string name="select_language">Seleccionar idioma</string>
+    56|    <string name="dark_mode">Modo oscuro</string>
+    57|    <string name="notifications">Notificaciones</string>
+    58|    <string name="notif_enabled">Notificaciones activadas</string>
+    59|    <string name="notif_disabled">Notificaciones desactivadas</string>
+    60|    <string name="version">Social Cleaner v8.0</string>
+    61|
+    62|    <string name="notif_channel_name">Social Cleaner</string>
+    63|    <string name="notif_channel_desc">Notificaciones de limpieza</string>
+    64|    <string name="notif_title">Liberar %s después de limpiar</string>
+    65|    <string name="notif_text">Toca para limpiar archivos innecesarios</string>
+    66|    <string name="notif_action">LIMPIAR</string>
+    67|    <string name="notif_cleanup_started">Limpieza en progreso…</string>
+    68|</resources>
+    69|

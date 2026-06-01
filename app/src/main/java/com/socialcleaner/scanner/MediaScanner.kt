@@ -145,9 +145,8 @@ object AppRegistry {
 class MediaScanner {
 
     private val basePaths = listOf(
-        Environment.getExternalStorageDirectory().absolutePath,
-        "/storage/emulated/0"
-    )
+        Environment.getExternalStorageDirectory().absolutePath
+    ).distinct()
 
     // Patterns pour extraire la date du nom de fichier
     // WhatsApp: IMG-20240115-WA0001.jpg, VID-20240115-WA0001.mp4

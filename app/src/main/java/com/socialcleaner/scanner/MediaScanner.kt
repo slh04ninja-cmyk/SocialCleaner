@@ -18,6 +18,8 @@ object AppRegistry {
 
     // Catégories supplémentaires appliquées à toutes les apps
     val globalCategories = mapOf(
+        "PDF" to listOf("pdf"),
+        "Word" to listOf("doc", "docx"),
         "Fichiers temporaires" to listOf("tmp", "temp", "cache", "log", "bak", "old", "orig", "partial"),
         "Bases de données" to listOf("db", "sqlite", "sqlite3", "db-wal", "db-shm", "db-journal")
     )
@@ -34,7 +36,7 @@ object AppRegistry {
             categories = mapOf(
                 "Images" to listOf("jpg", "jpeg", "png", "webp", "gif"),
                 "Vidéos" to listOf("mp4", "3gp", "mkv", "avi"),
-                "Documents" to listOf("pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "txt", "csv", "zip", "apk"),
+                "Documents" to listOf("xls", "xlsx", "ppt", "pptx", "txt", "csv", "zip", "apk"),
                 "Voice Notes" to listOf("opus", "ogg", "m4a"),
                 "Audio" to listOf("mp3", "aac", "wav", "wma"),
                 "Stickers" to listOf("webp", "png"),
@@ -53,7 +55,7 @@ object AppRegistry {
             categories = mapOf(
                 "Images" to listOf("jpg", "jpeg", "png", "webp", "gif"),
                 "Vidéos" to listOf("mp4", "mkv", "avi"),
-                "Documents" to listOf("pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "txt", "zip", "apk"),
+                "Documents" to listOf("xls", "xlsx", "ppt", "pptx", "txt", "zip", "apk"),
                 "Audio" to listOf("mp3", "ogg", "m4a", "opus"),
                 "Voice Notes" to listOf("opus", "ogg"),
                 "Stickers" to listOf("webp", "tgs"),
@@ -70,8 +72,7 @@ object AppRegistry {
             ),
             categories = mapOf(
                 "Images" to listOf("jpg", "jpeg", "png", "webp"),
-                "Vidéos" to listOf("mp4", "3gp"),
-                "Documents" to listOf("pdf", "doc", "docx")
+                "Vidéos" to listOf("mp4", "3gp")
             )
         ),
         SocialApp(
@@ -141,7 +142,6 @@ object AppRegistry {
             categories = mapOf(
                 "Images" to listOf("jpg", "jpeg", "png", "webp"),
                 "Vidéos" to listOf("mp4"),
-                "Documents" to listOf("pdf", "doc", "docx"),
                 "Audio" to listOf("mp3", "ogg", "m4a")
             )
         ),
@@ -157,7 +157,7 @@ object AppRegistry {
             categories = mapOf(
                 "Images" to listOf("jpg", "jpeg", "png", "webp", "gif"),
                 "Vidéos" to listOf("mp4", "3gp"),
-                "Documents" to listOf("pdf", "doc", "docx", "zip")
+                "Documents" to listOf("zip")
             )
         )
     )
@@ -378,6 +378,8 @@ class MediaScanner {
             "stickers" -> "sticker"
             "vidéo notes" -> "video_note"
             "gifs" -> "gif"
+            "pdf" -> "pdf"
+            "word" -> "word"
             "fichiers temporaires" -> "temp"
             "bases de données" -> "database"
             else -> "other"

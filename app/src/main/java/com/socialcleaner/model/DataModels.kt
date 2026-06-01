@@ -22,6 +22,8 @@ data class MediaCategory(
             "Vidéo Notes" -> context.getString(R.string.cat_video_notes)
             "GIFs" -> context.getString(R.string.cat_gifs)
             "Autres" -> context.getString(R.string.cat_others)
+            "PDF" -> context.getString(R.string.cat_pdf)
+            "Word" -> context.getString(R.string.cat_word)
             "Fichiers temporaires" -> context.getString(R.string.cat_temp)
             "Bases de données" -> context.getString(R.string.cat_database)
             else -> name

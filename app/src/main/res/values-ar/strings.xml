@@ -51,6 +51,8 @@
     <string name="cat_video_notes">ملاحظات فيديو</string>
     <string name="cat_gifs">صور متحركة</string>
     <string name="cat_others">أخرى</string>
+    <string name="cat_pdf">PDF</string>
+    <string name="cat_word">وورد</string>
     <string name="cat_temp">ملفات مؤقتة</string>
     <string name="cat_database">قواعد بيانات</string>
 

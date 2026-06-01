@@ -51,6 +51,8 @@
     <string name="cat_video_notes">Notas de vídeo</string>
     <string name="cat_gifs">GIFs</string>
     <string name="cat_others">Otros</string>
+    <string name="cat_pdf">PDF</string>
+    <string name="cat_word">Word</string>
     <string name="cat_temp">Archivos temporales</string>
     <string name="cat_database">Bases de datos</string>
 

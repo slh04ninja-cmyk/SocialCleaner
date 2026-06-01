@@ -51,6 +51,8 @@
     <string name="cat_video_notes">Notas de vídeo</string>
     <string name="cat_gifs">GIFs</string>
     <string name="cat_others">Otros</string>
+    <string name="cat_temp">Archivos temporales</string>
+    <string name="cat_database">Bases de datos</string>
 
     <string name="confirm_title">Confirmación</string>
     <string name="confirm_message">Apps: %1$s\nAño(s): %2$s\nArchivos: %3$d\nTamaño: %4$s\n\n¡Esta acción es irreversible!</string>

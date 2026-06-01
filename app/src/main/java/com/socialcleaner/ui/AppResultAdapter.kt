@@ -129,6 +129,8 @@ class AppResultAdapter(
                 "sticker" -> R.drawable.ic_picture
                 "video_note" -> R.drawable.ic_play
                 "gif" -> R.drawable.ic_gif
+                "temp" -> R.drawable.ic_temp
+                "database" -> R.drawable.ic_database
                 else -> R.drawable.ic_files
             }
         }

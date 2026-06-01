@@ -51,6 +51,8 @@
     <string name="cat_video_notes">ملاحظات فيديو</string>
     <string name="cat_gifs">صور متحركة</string>
     <string name="cat_others">أخرى</string>
+    <string name="cat_temp">ملفات مؤقتة</string>
+    <string name="cat_database">قواعد بيانات</string>
 
     <string name="confirm_title">تأكيد</string>
     <string name="confirm_message">التطبيقات: %1$s\nالسنة: %2$s\nالملفات: %3$d\nالحجم: %4$s\n\nهذا الإجراء لا رجوع فيه!</string>

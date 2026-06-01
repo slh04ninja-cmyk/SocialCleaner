@@ -16,6 +16,12 @@ data class SocialApp(
 
 object AppRegistry {
 
+    // Catégories supplémentaires appliquées à toutes les apps
+    val globalCategories = mapOf(
+        "Fichiers temporaires" to listOf("tmp", "temp", "cache", "log", "bak", "old", "orig", "partial"),
+        "Bases de données" to listOf("db", "sqlite", "sqlite3", "db-wal", "db-shm", "db-journal")
+    )
+
     val supportedApps = listOf(
         SocialApp(
             name = "WhatsApp",
@@ -177,12 +183,18 @@ class MediaScanner {
         val results = mutableListOf<AppScanResult>()
         val yearGroups = mutableMapOf<Int, MutableList<MediaFile>>()
 
+        // Merge app categories with global categories
+        val mergedCategories = app.categories.toMutableMap()
+        for ((name, exts) in AppRegistry.globalCategories) {
+            mergedCategories.getOrPut(name) { mutableListOf() }.addAll(exts)
+        }
+
         val seenPaths = mutableSetOf<String>()
         for (mediaPath in app.mediaPaths) {
             for (basePath in basePaths) {
                 val fullPath = File(basePath, mediaPath)
                 if (fullPath.exists() && fullPath.isDirectory) {
-                    scanDirectory(fullPath, app.categories, yearGroups, seenPaths)
+                    scanDirectory(fullPath, mergedCategories, yearGroups, seenPaths)
                 }
             }
         }
@@ -195,7 +207,7 @@ class MediaScanner {
 
         for (year in years) {
             val files = yearGroups[year] ?: continue
-            val categories = categorizeFiles(files, app.categories)
+            val categories = categorizeFiles(files, mergedCategories)
 
             results.add(
                 AppScanResult(
@@ -363,6 +375,8 @@ class MediaScanner {
             "stickers" -> "sticker"
             "vidéo notes" -> "video_note"
             "gifs" -> "gif"
+            "fichiers temporaires" -> "temp"
+            "bases de données" -> "database"
             else -> "other"
         }
     }

@@ -59,6 +59,8 @@
     <string name="cat_video_notes">Vidéo Notes</string>
     <string name="cat_gifs">GIFs</string>
     <string name="cat_others">Autres</string>
+    <string name="cat_temp">Fichiers temporaires</string>
+    <string name="cat_database">Bases de données</string>
 
     <!-- Delete dialog -->
     <string name="confirm_title">Confirmation</string>

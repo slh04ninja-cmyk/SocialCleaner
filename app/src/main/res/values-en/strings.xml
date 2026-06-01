@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Social Cleaner</string>
+    <string name="app_description">Storage cleaning app for social media files</string>
+    <string name="permission_description">Storage access to scan and delete files from social media apps</string>
+
+    <string name="header_subtitle">Free up your phone\'s space</string>
+
+    <string name="scan">Scan</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Delete</string>
+    <string name="next">Next</string>
+    <string name="start">Get Started</string>
+    <string name="skip">Skip</string>
+
+    <string name="files">Files</string>
+    <string name="space_used_label">Space used</string>
+    <string name="apps_label">Applications</string>
+    <string name="size">Size</string>
+    <string name="files_count">%d files</string>
+    <string name="space_used">%s used</string>
+    <string name="apps_count">%d applications</string>
+
+    <string name="all_years">All years</string>
+
+    <string name="scanning">Scanning…</string>
+    <string name="scan_app">Scanning %1$s… (%2$d/%3$d)</string>
+    <string name="scan_complete">Scan complete</string>
+    <string name="no_data">No data found</string>
+    <string name="delete_progress">Deleting…</string>
+    <string name="delete_complete">%d deleted • %s freed</string>
+    <string name="delete_toast">%d files deleted</string>
+    <string name="select_files_first">Select files first</string>
+    <string name="selection_summary">%1$d files • %2$s</string>
+
+    <string name="confirm_title">Confirmation</string>
+    <string name="confirm_message">Apps: %1$s\nYear(s): %2$s\nFiles: %3$d\nSize: %4$s\n\nThis action is irreversible!</string>
+
+    <string name="onboarding_analyze_title">Analyze your files</string>
+    <string name="onboarding_analyze_desc">Tap Scan to analyze media files from your social media apps. The app detects images, videos, documents and audio.</string>
+    <string name="onboarding_analyze_step1">1. Select a year or all</string>
+    <string name="onboarding_analyze_step2">2. Tap Scan</string>
+    <string name="onboarding_analyze_step3">3. View results by category</string>
+    <string name="onboarding_delete_title">Delete safely</string>
+    <string name="onboarding_delete_desc">Select the categories you want to delete, then tap Delete. You keep full control over each file.</string>
+    <string name="onboarding_delete_step1">1. Check desired categories</string>
+    <string name="onboarding_delete_step2">2. Review selection above</string>
+    <string name="onboarding_delete_step3">3. Tap Delete</string>
+    <string name="page_indicator">%1$d / %2$d</string>
+</resources>

@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true"
         android:description="@string/app_description"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:localeConfig="@xml/locales_config">
 
         <activity
             android:name=".OnboardingActivity"

@@ -58,16 +58,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Apply Material You dynamic colors
         DynamicColors.applyToActivityIfAvailable(this)
-
-        // Follow system dark/light theme
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // Activity transition
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
 
         initViews()
@@ -102,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupYearSpinner() {
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        val years = mutableListOf("Toutes les années")
+        val years = mutableListOf(getString(R.string.all_years))
         for (y in currentYear downTo 2018) {
             years.add(y.toString())
         }
@@ -147,11 +142,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startScan() {
-        // Show Lottie scan animation
         lottieScan.visibility = View.VISIBLE
         lottieScan.playAnimation()
         progressBar.visibility = View.VISIBLE
-        tvStatus.text = "Analyse en cours..."
+        tvStatus.text = getString(R.string.scanning)
         tvStatus.visibility = View.VISIBLE
         btnScan.isEnabled = false
         btnDelete.visibility = View.GONE
@@ -164,7 +158,7 @@ class MainActivity : AppCompatActivity() {
 
                 for ((index, app) in apps.withIndex()) {
                     withContext(Dispatchers.Main) {
-                        tvStatus.text = "Scan ${app.name}... (${index + 1}/${apps.size})"
+                        tvStatus.text = getString(R.string.scan_app, app.name, index + 1, apps.size)
                     }
 
                     val scanResults = scanner.scanApp(app, selectedYear)
@@ -181,7 +175,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayResults(results: List<AppScanResult>) {
-        // Hide Lottie animation with fade out
         lottieScan.cancelAnimation()
         lottieScan.animate()
             .alpha(0f)
@@ -196,7 +189,7 @@ class MainActivity : AppCompatActivity() {
         btnScan.isEnabled = true
 
         if (results.isEmpty()) {
-            tvStatus.text = "Aucune donnée trouvée"
+            tvStatus.text = getString(R.string.no_data)
             tvStatFiles.text = "0"
             tvStatSize.text = "0"
             tvStatApps.text = "0"
@@ -210,7 +203,7 @@ class MainActivity : AppCompatActivity() {
         val totalSize = results.sumOf { it.totalSize }
         val appCount = results.map { it.appName }.distinct().size
 
-        tvStatus.text = "Scan terminé"
+        tvStatus.text = getString(R.string.scan_complete)
         tvStatus.setTextColor(resources.getColor(R.color.success, theme))
         tvStatFiles.text = totalFiles.toString()
         tvStatSize.text = formatSize(totalSize)
@@ -222,7 +215,6 @@ class MainActivity : AppCompatActivity() {
 
         yearAdapter.setData(yearGroups)
 
-        // Animate results appearance
         btnDelete.alpha = 0f
         btnDelete.visibility = View.VISIBLE
         btnDelete.animate().alpha(1f).setDuration(400).start()
@@ -245,7 +237,7 @@ class MainActivity : AppCompatActivity() {
 
         if (count > 0) {
             selectionSummary.visibility = View.VISIBLE
-            tvSelection.text = "$count fichiers • ${formatSize(totalSize)}"
+            tvSelection.text = getString(R.string.selection_summary, count, formatSize(totalSize))
         } else {
             selectionSummary.visibility = View.GONE
         }
@@ -255,7 +247,7 @@ class MainActivity : AppCompatActivity() {
         val selectedFiles = yearAdapter.getAllSelectedFiles()
 
         if (selectedFiles.isEmpty()) {
-            Toast.makeText(this, "Sélectionnez d'abord des fichiers", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.select_files_first), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -279,16 +271,10 @@ class MainActivity : AppCompatActivity() {
         val appList = appNames.joinToString(", ")
 
         AlertDialog.Builder(this)
-            .setTitle("Confirmation")
-            .setMessage(
-                "Apps: $appList\n" +
-                "Année(s): $yearList\n" +
-                "Fichiers: ${selectedFiles.size}\n" +
-                "Taille: ${formatSize(deleteSize)}\n\n" +
-                "Cette action est irréversible !"
-            )
-            .setPositiveButton("Supprimer") { _, _ -> deleteSelected(selectedFiles) }
-            .setNegativeButton("Annuler", null)
+            .setTitle(getString(R.string.confirm_title))
+            .setMessage(getString(R.string.confirm_message, appList, yearList, selectedFiles.size, formatSize(deleteSize)))
+            .setPositiveButton(getString(R.string.confirm)) { _, _ -> deleteSelected(selectedFiles) }
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
@@ -296,7 +282,7 @@ class MainActivity : AppCompatActivity() {
         lottieScan.visibility = View.VISIBLE
         lottieScan.playAnimation()
         progressBar.visibility = View.VISIBLE
-        tvStatus.text = "Suppression en cours..."
+        tvStatus.text = getString(R.string.delete_progress)
 
         lifecycleScope.launch {
             var deletedCount = 0
@@ -319,13 +305,13 @@ class MainActivity : AppCompatActivity() {
             lottieScan.cancelAnimation()
             lottieScan.visibility = View.GONE
             progressBar.visibility = View.GONE
-            tvStatus.text = "$deletedCount supprimés • ${formatSize(deletedSize)} libérés"
+            tvStatus.text = getString(R.string.delete_complete, deletedCount, formatSize(deletedSize))
             tvStatus.setTextColor(resources.getColor(R.color.success, theme))
             btnDelete.visibility = View.GONE
             selectionSummary.visibility = View.GONE
 
             Toast.makeText(this@MainActivity,
-                "$deletedCount fichiers supprimés", Toast.LENGTH_LONG).show()
+                getString(R.string.delete_toast, deletedCount), Toast.LENGTH_LONG).show()
 
             startScan()
         }

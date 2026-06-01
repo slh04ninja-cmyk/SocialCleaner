@@ -3,20 +3,56 @@
     <string name="app_name">Social Cleaner</string>
     <string name="app_description">Application de nettoyage de stockage pour les fichiers multimédias des réseaux sociaux</string>
     <string name="permission_description">Accès au stockage pour analyser et supprimer les fichiers des applications de réseaux sociaux</string>
+
+    <!-- Header -->
+    <string name="header_subtitle">Libérez l\'espace de votre téléphone</string>
+
+    <!-- Buttons -->
     <string name="scan">Scanner</string>
     <string name="delete">Supprimer</string>
-    <string name="all_years">Toutes les années</string>
-    <string name="scanning">Analyse en cours…</string>
-    <string name="no_data">Aucune donnée trouvée</string>
-    <string name="confirm_delete">Êtes-vous sûr de vouloir supprimer les fichiers sélectionnés ?</string>
-    <string name="irreversible">Cette action est irréversible.</string>
     <string name="cancel">Annuler</string>
+    <string name="confirm">Supprimer</string>
+    <string name="next">Suivant</string>
+    <string name="start">Commencer</string>
+    <string name="skip">Passer</string>
+
+    <!-- Stats -->
     <string name="files">Fichiers</string>
+    <string name="space_used_label">Espace utilisé</string>
+    <string name="apps_label">Applications</string>
     <string name="size">Taille</string>
     <string name="files_count">%d fichiers</string>
     <string name="space_used">%s utilisé</string>
     <string name="apps_count">%d applications</string>
+
+    <!-- Spinner -->
+    <string name="all_years">Toutes les années</string>
+
+    <!-- Scan status -->
+    <string name="scanning">Analyse en cours…</string>
+    <string name="scan_app">Scan %1$s… (%2$d/%3$d)</string>
     <string name="scan_complete">Scan terminé</string>
-    <string name="delete_complete">%d fichiers supprimés</string>
+    <string name="no_data">Aucune donnée trouvée</string>
+    <string name="delete_progress">Suppression en cours…</string>
+    <string name="delete_complete">%d supprimés • %s libérés</string>
+    <string name="delete_toast">%d fichiers supprimés</string>
     <string name="select_files_first">Sélectionnez d\'abord des fichiers</string>
+    <string name="selection_summary">%1$d fichiers • %2$s</string>
+
+    <!-- Delete dialog -->
+    <string name="confirm_title">Confirmation</string>
+    <string name="confirm_message">Apps: %1$s\nAnnée(s): %2$s\nFichiers: %3$d\nTaille: %4$s\n\nCette action est irréversible !</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_analyze_title">Analysez vos fichiers</string>
+    <string name="onboarding_analyze_desc">Appuyez sur Scanner pour analyser les fichiers multimédias de vos applications de réseaux sociaux. L\'application détecte les images, vidéos, documents et audio.</string>
+    <string name="onboarding_analyze_step1">1. Sélectionnez une année ou toutes</string>
+    <string name="onboarding_analyze_step2">2. Appuyez sur Scanner</string>
+    <string name="onboarding_analyze_step3">3. Consultez les résultats par catégorie</string>
+    <string name="onboarding_delete_title">Supprimez en toute sécurité</string>
+    <string name="onboarding_delete_desc">Sélectionnez les catégories que vous souhaitez supprimer, puis appuyez sur Supprimer. Vous gardez le contrôle total sur chaque fichier.</string>
+    <string name="onboarding_delete_step1">1. Cochez les catégories souhaitées</string>
+    <string name="onboarding_delete_step2">2. Vérifiez la sélection en haut</string>
+    <string name="onboarding_delete_step3">3. Appuyez sur Supprimer</string>
+    <string name="page_indicator">%1$d / %2$d</string>
 </resources>

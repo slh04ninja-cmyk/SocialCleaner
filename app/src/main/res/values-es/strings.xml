@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Social Cleaner</string>
+    <string name="app_description">Aplicación de limpieza de almacenamiento para archivos multimedia de redes sociales</string>
+    <string name="permission_description">Acceso al almacenamiento para analizar y eliminar archivos de aplicaciones de redes sociales</string>
+
+    <string name="header_subtitle">Libera el espacio de tu teléfono</string>
+
+    <string name="scan">Escanear</string>
+    <string name="delete">Eliminar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Eliminar</string>
+    <string name="next">Siguiente</string>
+    <string name="start">Comenzar</string>
+    <string name="skip">Omitir</string>
+
+    <string name="files">Archivos</string>
+    <string name="space_used_label">Espacio usado</string>
+    <string name="apps_label">Aplicaciones</string>
+    <string name="size">Tamaño</string>
+    <string name="files_count">%d archivos</string>
+    <string name="space_used">%s usado</string>
+    <string name="apps_count">%d aplicaciones</string>
+
+    <string name="all_years">Todos los años</string>
+
+    <string name="scanning">Escaneando…</string>
+    <string name="scan_app">Escaneando %1$s… (%2$d/%3$d)</string>
+    <string name="scan_complete">Escaneo completo</string>
+    <string name="no_data">No se encontraron datos</string>
+    <string name="delete_progress">Eliminando…</string>
+    <string name="delete_complete">%d eliminados • %s liberados</string>
+    <string name="delete_toast">%d archivos eliminados</string>
+    <string name="select_files_first">Seleccione archivos primero</string>
+    <string name="selection_summary">%1$d archivos • %2$s</string>
+
+    <string name="confirm_title">Confirmación</string>
+    <string name="confirm_message">Apps: %1$s\nAño(s): %2$s\nArchivos: %3$d\nTamaño: %4$s\n\n¡Esta acción es irreversible!</string>
+
+    <string name="onboarding_analyze_title">Analiza tus archivos</string>
+    <string name="onboarding_analyze_desc">Toca Escanear para analizar los archivos multimedia de tus redes sociales. La app detecta imágenes, vídeos, documentos y audio.</string>
+    <string name="onboarding_analyze_step1">1. Selecciona un año o todos</string>
+    <string name="onboarding_analyze_step2">2. Toca Escanear</string>
+    <string name="onboarding_analyze_step3">3. Consulta los resultados por categoría</string>
+    <string name="onboarding_delete_title">Elimina con seguridad</string>
+    <string name="onboarding_delete_desc">Selecciona las categorías que deseas eliminar y toca Eliminar. Mantienes el control total sobre cada archivo.</string>
+    <string name="onboarding_delete_step1">1. Marca las categorías deseadas</string>
+    <string name="onboarding_delete_step2">2. Revisa la selección arriba</string>
+    <string name="onboarding_delete_step3">3. Toca Eliminar</string>
+    <string name="page_indicator">%1$d / %2$d</string>
+</resources>

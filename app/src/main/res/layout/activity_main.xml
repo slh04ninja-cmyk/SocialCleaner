@@ -41,7 +41,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Libérez l'espace de votre téléphone"
+                    android:text="@string/header_subtitle"
                     android:textColor="@color/text_on_gradient_secondary"
                     android:textSize="12sp"
                     android:layout_marginTop="4dp"
@@ -78,7 +78,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fichiers"
+                        android:text="@string/files"
                         android:textColor="@color/text_hint"
                         android:textSize="11sp"
                         android:layout_marginTop="2dp"/>
@@ -106,7 +106,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Espace utilisé"
+                        android:text="@string/space_used_label"
                         android:textColor="@color/text_hint"
                         android:textSize="11sp"
                         android:layout_marginTop="2dp"/>
@@ -134,7 +134,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Applications"
+                        android:text="@string/apps_label"
                         android:textColor="@color/text_hint"
                         android:textSize="11sp"
                         android:layout_marginTop="2dp"/>
@@ -165,7 +165,7 @@
                 android:id="@+id/btnScan"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:text="Scanner"
+                android:text="@string/scan"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:backgroundTint="@color/accent"
@@ -207,6 +207,7 @@
             android:textColor="@color/accent"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:gravity="center"
             android:visibility="gone"/>
 
         <!-- Selection summary bar -->
@@ -234,7 +235,7 @@
                 android:id="@+id/btnDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:text="Supprimer"
+                android:text="@string/delete"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:cornerRadius="12dp"

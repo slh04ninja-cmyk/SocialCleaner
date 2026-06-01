@@ -11,3 +11,4 @@
 }
 
 -dontwarn kotlinx.**
+-dontwarn javax.annotation.**

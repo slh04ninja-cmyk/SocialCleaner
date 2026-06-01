@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
     private var allResults = listOf<AppScanResult>()
     private var selectedYear: Int? = null
     private var isDarkMode = false
+    private var isScanning = false
 
     // Scan service
     private var scanService: ScanService? = null
@@ -87,11 +88,13 @@ class MainActivity : AppCompatActivity() {
             }
 
             scanService?.onResult = { results ->
+                isScanning = false
                 allResults = results
                 displayResults(results)
             }
 
             scanService?.onCancelled = {
+                isScanning = false
                 resetScanUI()
                 tvStatus.text = getString(R.string.cancel)
             }
@@ -359,6 +362,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startScan() {
+        if (isScanning) return
+        isScanning = true
+
         lottieScan.visibility = View.VISIBLE
         lottieScan.playAnimation()
         progressBar.visibility = View.VISIBLE
@@ -418,6 +424,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun resetScanUI() {
+        isScanning = false
         lottieScan.cancelAnimation()
         lottieScan.visibility = View.GONE
         progressBar.visibility = View.GONE
@@ -425,6 +432,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayResults(results: List<AppScanResult>) {
+        isScanning = false
         lottieScan.cancelAnimation()
         lottieScan.animate()
             .alpha(0f)

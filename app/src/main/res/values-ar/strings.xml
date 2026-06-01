@@ -13,6 +13,7 @@
     <string name="next">التالي</string>
     <string name="start">ابدأ</string>
     <string name="skip">تخطي</string>
+    <string name="menu">القائمة</string>
 
     <string name="files">ملفات</string>
     <string name="space_used_label">المساحة المستخدمة</string>
@@ -38,7 +39,7 @@
     <string name="confirm_message">التطبيقات: %1$s\nالسنة: %2$s\nالملفات: %3$d\nالحجم: %4$s\n\nهذا الإجراء لا رجوع فيه!</string>
 
     <string name="onboarding_analyze_title">حلل ملفاتك</string>
-    <string name="onboarding_analyze_desc">اضغط على فحص لتحليل الملفات多媒体 من تطبيقات التواصل الاجتماعي. التطبيق يكشف عن الصور ومقاطع الفيديو والمستندات والصوتيات.</string>
+    <string name="onboarding_analyze_desc">اضغط على فحص لتحليل الملفات من تطبيقات التواصل الاجتماعي. التطبيق يكشف عن الصور ومقاطع الفيديو والمستندات والصوتيات.</string>
     <string name="onboarding_analyze_step1">1. اختر سنة أو الكل</string>
     <string name="onboarding_analyze_step2">2. اضغط فحص</string>
     <string name="onboarding_analyze_step3">3. اعرض النتائج حسب الفئة</string>
@@ -48,4 +49,20 @@
     <string name="onboarding_delete_step2">2. راجع التحديد أعلاه</string>
     <string name="onboarding_delete_step3">3. اضغط حذف</string>
     <string name="page_indicator">%1$d / %2$d</string>
+
+    <string name="settings">الإعدادات</string>
+    <string name="language">اللغة</string>
+    <string name="select_language">اختر اللغة</string>
+    <string name="dark_mode">الوضع الداكن</string>
+    <string name="notifications">الإشعارات</string>
+    <string name="notif_enabled">تم تفعيل الإشعارات</string>
+    <string name="notif_disabled">تم إيقاف الإشعارات</string>
+    <string name="version">سوشيال كلينر الإصدار 8.0</string>
+
+    <string name="notif_channel_name">سوشيال كلينر</string>
+    <string name="notif_channel_desc">إشعارات التنظيف</string>
+    <string name="notif_title">حرر %s بعد التنظيف</string>
+    <string name="notif_text">اضغط لتنظيف الملفات غير الضرورية</string>
+    <string name="notif_action">تنظيف</string>
+    <string name="notif_cleanup_started">جاري التنظيف…</string>
 </resources>

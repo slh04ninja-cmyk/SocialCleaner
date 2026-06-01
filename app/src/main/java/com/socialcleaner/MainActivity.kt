@@ -1,6 +1,8 @@
 package com.socialcleaner
 
 import android.Manifest
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -9,19 +11,20 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.color.DynamicColors
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.socialcleaner.model.*
 import com.socialcleaner.scanner.AppRegistry
 import com.socialcleaner.scanner.MediaScanner
@@ -34,6 +37,8 @@ import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var btnMenu: ImageView
     private lateinit var rvYears: RecyclerView
     private lateinit var progressBar: View
     private lateinit var lottieScan: LottieAnimationView
@@ -47,14 +52,24 @@ class MainActivity : AppCompatActivity() {
     private lateinit var selectionSummary: LinearLayout
     private lateinit var tvSelection: TextView
 
+    // Drawer menu
+    private lateinit var menuLanguage: LinearLayout
+    private lateinit var menuTheme: LinearLayout
+    private lateinit var menuNotifications: LinearLayout
+    private lateinit var switchDarkMode: SwitchMaterial
+    private lateinit var switchNotifications: SwitchMaterial
+    private lateinit var tvCurrentLang: TextView
+
     private val scanner = MediaScanner()
     private lateinit var yearAdapter: YearAdapter
+    private lateinit var notifHelper: NotificationHelper
     private var allResults = listOf<AppScanResult>()
     private var selectedYear: Int? = null
 
     companion object {
         private const val STORAGE_PERMISSION_CODE = 100
         private const val MANAGE_STORAGE_CODE = 101
+        private const val NOTIF_PERMISSION_CODE = 102
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,12 +80,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
 
+        notifHelper = NotificationHelper(this)
+
         initViews()
+        setupDrawer()
         setupYearSpinner()
         checkPermissions()
+
+        // Handle notification cleanup action
+        if (intent.getBooleanExtra("auto_cleanup", false)) {
+            startScan()
+        }
     }
 
     private fun initViews() {
+        drawerLayout = findViewById(R.id.drawerLayout)
+        btnMenu = findViewById(R.id.btnMenu)
         rvYears = findViewById(R.id.rvYears)
         progressBar = findViewById(R.id.progressBar)
         lottieScan = findViewById(R.id.lottieScan)
@@ -84,6 +109,14 @@ class MainActivity : AppCompatActivity() {
         selectionSummary = findViewById(R.id.selectionSummary)
         tvSelection = findViewById(R.id.tvSelection)
 
+        // Drawer menu views
+        menuLanguage = findViewById(R.id.menuLanguage)
+        menuTheme = findViewById(R.id.menuTheme)
+        menuNotifications = findViewById(R.id.menuNotifications)
+        switchDarkMode = findViewById(R.id.switchDarkMode)
+        switchNotifications = findViewById(R.id.switchNotifications)
+        tvCurrentLang = findViewById(R.id.tvCurrentLang)
+
         yearAdapter = YearAdapter { updateSelectionSummary() }
         rvYears.layoutManager = LinearLayoutManager(this)
         rvYears.adapter = yearAdapter
@@ -93,6 +126,121 @@ class MainActivity : AppCompatActivity() {
 
         btnDelete.visibility = View.GONE
         selectionSummary.visibility = View.GONE
+    }
+
+    private fun setupDrawer() {
+        // Set drawer width to 70% of screen
+        val params = findViewById<View>(R.id.drawerMenu).layoutParams as DrawerLayout.LayoutParams
+        params.width = (resources.displayMetrics.widthPixels * 0.70).toInt()
+        findViewById<View>(R.id.drawerMenu).layoutParams = params
+
+        // Hamburger menu click
+        btnMenu.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        // Update current language display
+        updateLanguageDisplay()
+
+        // Language switcher
+        menuLanguage.setOnClickListener {
+            showLanguageDialog()
+        }
+
+        // Dark mode toggle
+        val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
+        val isDarkMode = prefs.getBoolean("dark_mode", false)
+        switchDarkMode.isChecked = isDarkMode
+
+        menuTheme.setOnClickListener {
+            switchDarkMode.toggle()
+            toggleDarkMode(switchDarkMode.isChecked)
+        }
+        switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
+            toggleDarkMode(isChecked)
+        }
+
+        // Notifications toggle
+        val notifEnabled = prefs.getBoolean("notifications_enabled", true)
+        switchNotifications.isChecked = notifEnabled
+
+        menuNotifications.setOnClickListener {
+            switchNotifications.toggle()
+            toggleNotifications(switchNotifications.isChecked)
+        }
+        switchNotifications.setOnCheckedChangeListener { _, isChecked ->
+            toggleNotifications(isChecked)
+        }
+    }
+
+    private fun updateLanguageDisplay() {
+        val locale = resources.configuration.locales[0]
+        val langName = when (locale.language) {
+            "en" -> "English"
+            "es" -> "Español"
+            "ar" -> "العربية"
+            else -> "Français"
+        }
+        tvCurrentLang.text = langName
+    }
+
+    private fun showLanguageDialog() {
+        val languages = arrayOf("Français", "English", "Español", "العربية")
+        val codes = arrayOf("fr", "en", "es", "ar")
+
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.select_language))
+            .setItems(languages) { _, which ->
+                setLocale(codes[which])
+            }
+            .show()
+    }
+
+    private fun setLocale(languageCode: String) {
+        val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
+        prefs.edit().putString("language", languageCode).apply()
+
+        // Apply locale
+        val locale = java.util.Locale(languageCode)
+        java.util.Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        config.setLayoutDirection(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+
+        // Recreate activity to apply changes
+        recreate()
+    }
+
+    private fun toggleDarkMode(enabled: Boolean) {
+        val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
+        prefs.edit().putBoolean("dark_mode", enabled).apply()
+
+        if (enabled) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    private fun toggleNotifications(enabled: Boolean) {
+        val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
+        prefs.edit().putBoolean("notifications_enabled", enabled).apply()
+
+        if (enabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, "android.permission.POST_NOTIFICATIONS")
+                != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf("android.permission.POST_NOTIFICATIONS"),
+                    NOTIF_PERMISSION_CODE
+                )
+            }
+        }
+
+        Toast.makeText(this,
+            if (enabled) getString(R.string.notif_enabled) else getString(R.string.notif_disabled),
+            Toast.LENGTH_SHORT).show()
     }
 
     private fun setupYearSpinner() {
@@ -218,6 +366,11 @@ class MainActivity : AppCompatActivity() {
         btnDelete.alpha = 0f
         btnDelete.visibility = View.VISIBLE
         btnDelete.animate().alpha(1f).setDuration(400).start()
+
+        // Show notification for scan results
+        if (totalSize > 0) {
+            notifHelper.showCleanupNotification(totalSize)
+        }
     }
 
     private fun updateSelectionSummary() {
@@ -270,7 +423,7 @@ class MainActivity : AppCompatActivity() {
         val yearList = years.sorted().joinToString(", ")
         val appList = appNames.joinToString(", ")
 
-        AlertDialog.Builder(this)
+        android.app.AlertDialog.Builder(this)
             .setTitle(getString(R.string.confirm_title))
             .setMessage(getString(R.string.confirm_message, appList, yearList, selectedFiles.size, formatSize(deleteSize)))
             .setPositiveButton(getString(R.string.confirm)) { _, _ -> deleteSelected(selectedFiles) }
@@ -314,6 +467,14 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.delete_toast, deletedCount), Toast.LENGTH_LONG).show()
 
             startScan()
+        }
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
         }
     }
 }

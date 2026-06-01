@@ -13,6 +13,7 @@
     <string name="next">Siguiente</string>
     <string name="start">Comenzar</string>
     <string name="skip">Omitir</string>
+    <string name="menu">Menú</string>
 
     <string name="files">Archivos</string>
     <string name="space_used_label">Espacio usado</string>
@@ -48,4 +49,20 @@
     <string name="onboarding_delete_step2">2. Revisa la selección arriba</string>
     <string name="onboarding_delete_step3">3. Toca Eliminar</string>
     <string name="page_indicator">%1$d / %2$d</string>
+
+    <string name="settings">Ajustes</string>
+    <string name="language">Idioma</string>
+    <string name="select_language">Seleccionar idioma</string>
+    <string name="dark_mode">Modo oscuro</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="notif_enabled">Notificaciones activadas</string>
+    <string name="notif_disabled">Notificaciones desactivadas</string>
+    <string name="version">Social Cleaner v8.0</string>
+
+    <string name="notif_channel_name">Social Cleaner</string>
+    <string name="notif_channel_desc">Notificaciones de limpieza</string>
+    <string name="notif_title">Liberar %s después de limpiar</string>
+    <string name="notif_text">Toca para limpiar archivos innecesarios</string>
+    <string name="notif_action">LIMPIAR</string>
+    <string name="notif_cleanup_started">Limpieza en progreso…</string>
 </resources>

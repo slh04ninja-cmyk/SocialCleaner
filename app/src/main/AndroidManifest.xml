@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         android:description="@string/permission_description"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:allowBackup="true"
@@ -32,6 +33,10 @@
             android:exported="false"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:screenOrientation="unspecified"/>
+
+        <receiver
+            android:name=".CleanupReceiver"
+            android:exported="false"/>
 
     </application>
 

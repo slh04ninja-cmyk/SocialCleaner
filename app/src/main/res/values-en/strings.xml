@@ -13,6 +13,7 @@
     <string name="next">Next</string>
     <string name="start">Get Started</string>
     <string name="skip">Skip</string>
+    <string name="menu">Menu</string>
 
     <string name="files">Files</string>
     <string name="space_used_label">Space used</string>
@@ -48,4 +49,20 @@
     <string name="onboarding_delete_step2">2. Review selection above</string>
     <string name="onboarding_delete_step3">3. Tap Delete</string>
     <string name="page_indicator">%1$d / %2$d</string>
+
+    <string name="settings">Settings</string>
+    <string name="language">Language</string>
+    <string name="select_language">Select language</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="notifications">Notifications</string>
+    <string name="notif_enabled">Notifications enabled</string>
+    <string name="notif_disabled">Notifications disabled</string>
+    <string name="version">Social Cleaner v8.0</string>
+
+    <string name="notif_channel_name">Social Cleaner</string>
+    <string name="notif_channel_desc">Cleanup notifications</string>
+    <string name="notif_title">Free up %s after cleanup</string>
+    <string name="notif_text">Tap to clean up unnecessary files</string>
+    <string name="notif_action">CLEAN UP</string>
+    <string name="notif_cleanup_started">Cleanup in progress…</string>
 </resources>

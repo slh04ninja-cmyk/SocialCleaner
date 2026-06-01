@@ -184,7 +184,10 @@ class MediaScanner {
         val yearGroups = mutableMapOf<Int, MutableList<MediaFile>>()
 
         // Merge app categories with global categories
-        val mergedCategories = app.categories.toMutableMap()
+        val mergedCategories = mutableMapOf<String, MutableList<String>>()
+        for ((name, exts) in app.categories) {
+            mergedCategories[name] = exts.toMutableList()
+        }
         for ((name, exts) in AppRegistry.globalCategories) {
             mergedCategories.getOrPut(name) { mutableListOf() }.addAll(exts)
         }

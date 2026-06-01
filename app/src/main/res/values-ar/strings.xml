@@ -1,69 +1,68 @@
-     1|<?xml version="1.0" encoding="utf-8"?>
-     2|<resources>
-     3|    <string name="app_name">سوشيال كلينر</string>
-     4|    <string name="app_description">تطبيق تنظيف التخزين لملفات وسائل التواصل الاجتماعي</string>
-     5|    <string name="permission_description">الوصول إلى التخزين لفحص وحذف ملفات تطبيقات التواصل الاجتماعي</string>
-     6|
-     7|    <string name="header_subtitle">حرر مساحة هاتفك</string>
-     8|
-     9|    <string name="scan">فحص</string>
-    10|    <string name="delete">حذف</string>
-    11|    <string name="cancel">إلغاء</string>
-    12|    <string name="confirm">حذف</string>
-    13|    <string name="next">التالي</string>
-    14|    <string name="start">ابدأ</string>
-    15|    <string name="skip">تخطي</string>
-    16|    <string name="menu">القائمة</string>
-    17|
-    18|    <string name="files">ملفات</string>
-    19|    <string name="space_used_label">المساحة المستخدمة</string>
-    20|    <string name="apps_label">التطبيقات</string>
-    21|    <string name="size">الحجم</string>
-    22|    <string name="files_count">%d ملفات</string>
-    23|    <string name="space_used">%s مستخدم</string>
-    24|    <string name="apps_count">%d تطبيقات</string>
-    25|
-    26|    <string name="all_years">كل السنوات</string>
-    27|
-    28|    <string name="scanning">جاري الفحص…</string>
-    29|    <string name="scan_app">فحص %1$s… (%2$d/%3$d)</string>
-    30|    <string name="scan_complete">اكتمل الفحص</string>
-    31|    <string name="no_data">لم يتم العثور على بيانات</string>
-    32|    <string name="delete_progress">جاري الحذف…</string>
-    33|    <string name="delete_complete">%1$d محذوف • %2$s تم تحريره</string>
-    34|    <string name="delete_toast">تم حذف %d ملفات</string>
-    35|    <string name="select_files_first">اختر الملفات أولاً</string>
-    36|    <string name="selection_summary">%1$d ملفات • %2$s</string>
-    37|
-    38|    <string name="confirm_title">تأكيد</string>
-    39|    <string name="confirm_message">التطبيقات: %1$s\nالسنة: %2$s\nالملفات: %3$d\nالحجم: %4$s\n\nهذا الإجراء لا رجوع فيه!</string>
-    40|
-    41|    <string name="onboarding_analyze_title">حلل ملفاتك</string>
-    42|    <string name="onboarding_analyze_desc">اضغط على فحص لتحليل الملفات من تطبيقات التواصل الاجتماعي. التطبيق يكشف عن الصور ومقاطع الفيديو والمستندات والصوتيات.</string>
-    43|    <string name="onboarding_analyze_step1">1. اختر سنة أو الكل</string>
-    44|    <string name="onboarding_analyze_step2">2. اضغط فحص</string>
-    45|    <string name="onboarding_analyze_step3">3. اعرض النتائج حسب الفئة</string>
-    46|    <string name="onboarding_delete_title">احذف بأمان</string>
-    47|    <string name="onboarding_delete_desc">اختر الفئات التي تريد حذفها ثم اضغط حذف. أنت تحتفظ بالتحكم الكامل في كل ملف.</string>
-    48|    <string name="onboarding_delete_step1">1. حدد الفئات المطلوبة</string>
-    49|    <string name="onboarding_delete_step2">2. راجع التحديد أعلاه</string>
-    50|    <string name="onboarding_delete_step3">3. اضغط حذف</string>
-    51|    <string name="page_indicator">%1$d / %2$d</string>
-    52|
-    53|    <string name="settings">الإعدادات</string>
-    54|    <string name="language">اللغة</string>
-    55|    <string name="select_language">اختر اللغة</string>
-    56|    <string name="dark_mode">الوضع الداكن</string>
-    57|    <string name="notifications">الإشعارات</string>
-    58|    <string name="notif_enabled">تم تفعيل الإشعارات</string>
-    59|    <string name="notif_disabled">تم إيقاف الإشعارات</string>
-    60|    <string name="version">سوشيال كلينر الإصدار 8.0</string>
-    61|
-    62|    <string name="notif_channel_name">سوشيال كلينر</string>
-    63|    <string name="notif_channel_desc">إشعارات التنظيف</string>
-    64|    <string name="notif_title">حرر %s بعد التنظيف</string>
-    65|    <string name="notif_text">اضغط لتنظيف الملفات غير الضرورية</string>
-    66|    <string name="notif_action">تنظيف</string>
-    67|    <string name="notif_cleanup_started">جاري التنظيف…</string>
-    68|</resources>
-    69|
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">سوشيال كلينر</string>
+    <string name="app_description">تطبيق تنظيف التخزين لملفات وسائل التواصل الاجتماعي</string>
+    <string name="permission_description">الوصول إلى التخزين لفحص وحذف ملفات تطبيقات التواصل الاجتماعي</string>
+
+    <string name="header_subtitle">حرر مساحة هاتفك</string>
+
+    <string name="scan">فحص</string>
+    <string name="delete">حذف</string>
+    <string name="cancel">إلغاء</string>
+    <string name="confirm">حذف</string>
+    <string name="next">التالي</string>
+    <string name="start">ابدأ</string>
+    <string name="skip">تخطي</string>
+    <string name="menu">القائمة</string>
+
+    <string name="files">ملفات</string>
+    <string name="space_used_label">المساحة المستخدمة</string>
+    <string name="apps_label">التطبيقات</string>
+    <string name="size">الحجم</string>
+    <string name="files_count">%d ملفات</string>
+    <string name="space_used">%s مستخدم</string>
+    <string name="apps_count">%d تطبيقات</string>
+
+    <string name="all_years">كل السنوات</string>
+
+    <string name="scanning">جاري الفحص…</string>
+    <string name="scan_app">فحص %1$s… (%2$d/%3$d)</string>
+    <string name="scan_complete">اكتمل الفحص</string>
+    <string name="no_data">لم يتم العثور على بيانات</string>
+    <string name="delete_progress">جاري الحذف…</string>
+    <string name="delete_complete">%1$d محذوف • %2$s تم تحريره</string>
+    <string name="delete_toast">تم حذف %d ملفات</string>
+    <string name="select_files_first">اختر الملفات أولاً</string>
+    <string name="selection_summary">%1$d ملفات • %2$s</string>
+
+    <string name="confirm_title">تأكيد</string>
+    <string name="confirm_message">التطبيقات: %1$s\nالسنة: %2$s\nالملفات: %3$d\nالحجم: %4$s\n\nهذا الإجراء لا رجوع فيه!</string>
+
+    <string name="onboarding_analyze_title">حلل ملفاتك</string>
+    <string name="onboarding_analyze_desc">اضغط على فحص لتحليل الملفات من تطبيقات التواصل الاجتماعي. التطبيق يكشف عن الصور ومقاطع الفيديو والمستندات والصوتيات.</string>
+    <string name="onboarding_analyze_step1">1. اختر سنة أو الكل</string>
+    <string name="onboarding_analyze_step2">2. اضغط فحص</string>
+    <string name="onboarding_analyze_step3">3. اعرض النتائج حسب الفئة</string>
+    <string name="onboarding_delete_title">احذف بأمان</string>
+    <string name="onboarding_delete_desc">اختر الفئات التي تريد حذفها ثم اضغط حذف. أنت تحتفظ بالتحكم الكامل في كل ملف.</string>
+    <string name="onboarding_delete_step1">1. حدد الفئات المطلوبة</string>
+    <string name="onboarding_delete_step2">2. راجع التحديد أعلاه</string>
+    <string name="onboarding_delete_step3">3. اضغط حذف</string>
+    <string name="page_indicator">%1$d / %2$d</string>
+
+    <string name="settings">الإعدادات</string>
+    <string name="language">اللغة</string>
+    <string name="select_language">اختر اللغة</string>
+    <string name="dark_mode">الوضع الداكن</string>
+    <string name="notifications">الإشعارات</string>
+    <string name="notif_enabled">تم تفعيل الإشعارات</string>
+    <string name="notif_disabled">تم إيقاف الإشعارات</string>
+    <string name="version">سوشيال كلينر الإصدار 9.0</string>
+
+    <string name="notif_channel_name">سوشيال كلينر</string>
+    <string name="notif_channel_desc">إشعارات التنظيف</string>
+    <string name="notif_title">حرر %s بعد التنظيف</string>
+    <string name="notif_text">اضغط لتنظيف الملفات غير الضرورية</string>
+    <string name="notif_action">تنظيف</string>
+    <string name="notif_cleanup_started">جاري التنظيف…</string>
+</resources>

@@ -2,14 +2,17 @@ package com.socialcleaner
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.IBinder
 import android.provider.Settings
 import android.view.View
 import android.widget.*
@@ -68,6 +71,40 @@ class MainActivity : AppCompatActivity() {
     private var allResults = listOf<AppScanResult>()
     private var selectedYear: Int? = null
     private var isDarkMode = false
+
+    // Scan service
+    private var scanService: ScanService? = null
+    private var serviceBound = false
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder = service as ScanService.ScanBinder
+            scanService = binder.getService()
+            serviceBound = true
+
+            scanService?.onProgress = { appName, current, total ->
+                tvStatus.text = getString(R.string.scan_app, appName, current, total)
+                progressBar.visibility = View.VISIBLE
+            }
+
+            scanService?.onResult = { results ->
+                allResults = results
+                displayResults(results)
+            }
+
+            scanService?.onCancelled = {
+                resetScanUI()
+                tvStatus.text = getString(R.string.cancel)
+            }
+
+            // Start scan after binding
+            scanService?.startScan(selectedYear)
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            scanService = null
+            serviceBound = false
+        }
+    }
 
     companion object {
         private const val STORAGE_PERMISSION_CODE = 100
@@ -330,27 +367,21 @@ class MainActivity : AppCompatActivity() {
         btnDelete.visibility = View.GONE
         selectionSummary.visibility = View.GONE
 
-        lifecycleScope.launch {
-            val results = withContext(Dispatchers.IO) {
-                val allResults = mutableListOf<AppScanResult>()
-                val apps = AppRegistry.supportedApps
-
-                for ((index, app) in apps.withIndex()) {
-                    withContext(Dispatchers.Main) {
-                        tvStatus.text = getString(R.string.scan_app, app.name, index + 1, apps.size)
-                    }
-
-                    val scanResults = scanner.scanApp(app, selectedYear)
-                    allResults.addAll(scanResults)
-                }
-
-                allResults.sortedWith(compareByDescending<AppScanResult> { it.year }
-                    .thenByDescending { it.totalSize })
-            }
-
-            allResults = results
-            displayResults(results)
+        // Start and bind to foreground service
+        val intent = Intent(this, ScanService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
         }
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+    }
+
+    private fun resetScanUI() {
+        lottieScan.cancelAnimation()
+        lottieScan.visibility = View.GONE
+        progressBar.visibility = View.GONE
+        btnScan.isEnabled = true
     }
 
     private fun displayResults(results: List<AppScanResult>) {
@@ -498,6 +529,14 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.delete_toast, deletedCount), Toast.LENGTH_LONG).show()
 
             startScan()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (serviceBound) {
+            unbindService(serviceConnection)
+            serviceBound = false
         }
     }
 

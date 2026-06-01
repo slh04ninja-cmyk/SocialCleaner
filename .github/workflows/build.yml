@@ -23,6 +23,13 @@ jobs:
       with:
         gradle-version: '8.5'
 
+    - name: Create local.properties
+      run: |
+        echo "sdk.dir=${{ runner.tool_cache }}/android-sdk" > local.properties
+        echo "keystore.password=${{ secrets.KEYSTORE_PASSWORD }}" >> local.properties
+        echo "key.alias=${{ secrets.KEY_ALIAS }}" >> local.properties
+        echo "key.password=${{ secrets.KEY_PASSWORD }}" >> local.properties
+
     - name: Build Release AAB
       run: gradle bundleRelease
 

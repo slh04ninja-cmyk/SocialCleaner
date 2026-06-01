@@ -49,7 +49,7 @@ object AppRegistry {
             icon = "telegram",
             packageName = "org.telegram.messenger",
             mediaPaths = listOf(
-                "Android/data/org.telegram.messenger/files/Telegram",
+                "Android/media/org.telegram.messenger/Telegram",
                 "Telegram"
             ),
             categories = mapOf(

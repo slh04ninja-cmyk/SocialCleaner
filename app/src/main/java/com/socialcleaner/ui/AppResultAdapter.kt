@@ -91,12 +91,12 @@ class AppResultAdapter(
                 val categoryView = LayoutInflater.from(ctx)
                     .inflate(R.layout.item_category, categoriesContainer, false)
 
-                val tvCategoryEmoji = categoryView.findViewById<TextView>(R.id.tvCategoryEmoji)
+                val tvCategoryIcon = categoryView.findViewById<ImageView>(R.id.tvCategoryIcon)
                 val tvCategoryName = categoryView.findViewById<TextView>(R.id.tvCategoryName)
                 val tvCategoryInfo = categoryView.findViewById<TextView>(R.id.tvCategoryInfo)
                 val cbCategory = categoryView.findViewById<CheckBox>(R.id.cbCategory)
 
-                tvCategoryEmoji.text = getCategoryEmoji(category)
+                tvCategoryIcon.setImageResource(getCategoryIcon(category))
                 tvCategoryName.text = category.getLocalizedName(ctx)
                 tvCategoryInfo.text = ctx.getString(R.string.files_and_size,
                     category.fileCount, formatSize(ctx, category.totalSize))
@@ -118,17 +118,17 @@ class AppResultAdapter(
             }
         }
 
-        private fun getCategoryEmoji(category: MediaCategory): String {
+        private fun getCategoryIcon(category: MediaCategory): Int {
             return when (category.icon) {
-                "image" -> "\uD83D\uDDBC\uFE0F"
-                "video" -> "\uD83C\uDFAC"
-                "document" -> "\uD83D\uDCC4"
-                "mic" -> "\uD83C\uDFA4"
-                "music" -> "\uD83C\uDFB5"
-                "sticker" -> "\uD83D\uDE00"
-                "video_note" -> "\uD83D\uDCF9"
-                "gif" -> "\uD83C\uDFA8"
-                else -> "\uD83D\uDCC1"
+                "image" -> R.drawable.ic_picture
+                "video" -> R.drawable.ic_play
+                "document" -> R.drawable.ic_files
+                "mic" -> R.drawable.ic_mic
+                "music" -> R.drawable.ic_mic
+                "sticker" -> R.drawable.ic_picture
+                "video_note" -> R.drawable.ic_play
+                "gif" -> R.drawable.ic_gif
+                else -> R.drawable.ic_files
             }
         }
     }

@@ -4,8 +4,8 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <!-- fi-sr-menu-burger (filled) -->
+    <!-- fi-sc-angle-double-small-up (filled) -->
     <path
-        android:pathData="M3,6h18v2.5H3V6zM3,11h18v2.5H3V11zM3,16h18v2.5H3V16z"
-        android:fillColor="#FFFFFF"/>
+        android:pathData="M6,17.59L7.41,19 12,14.42 16.59,19 18,17.59l-6,-6 -6,6zM6,11.59L7.41,13 12,8.42 16.59,13 18,11.59l-6,-6 -6,6z"
+        android:fillColor="@color/accent"/>
 </vector>

@@ -4,9 +4,9 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <!-- fi-rr-bell (outline) -->
+    <!-- fi-rr-gif (outline) - GIF -->
     <path
-        android:pathData="M12,22c1.1,0 2,-0.9 2,-2h-4c0,1.1 0.9,2 2,2zM18,16v-5c0,-3.07 -1.63,-5.64 -4.5,-6.32V4c0,-0.83 -0.67,-1.5 -1.5,-1.5s-1.5,0.67 -1.5,1.5v0.68C7.64,5.36 6,7.92 6,11v5l-2,2v1h16v-1l-2,-2z"
+        android:pathData="M2,4v16h20V4H2zM11,11H9.5v0.5h-1v-3h1V9H8V8h3V11zM11,13H8v1h2c0,0.55 -0.45,1 -1,1h-1c-0.55,0 -1,-0.45 -1,-1v-2c0,-0.55 0.45,-1 1,-1h3V13zM18,15h-2v-4h-1v4h-1v-4h-1v4h-1v-3c0,-0.55 0.45,-1 1,-1h4c0.55,0 1,0.45 1,1V15z"
         android:strokeWidth="1.5"
         android:strokeColor="@color/text_primary"
         android:fillColor="#00000000"/>

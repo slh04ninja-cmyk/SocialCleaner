@@ -10,15 +10,15 @@
     android:background="@drawable/bg_category_item"
     android:layoutDirection="locale">
 
-    <!-- Category emoji/icon -->
-    <TextView
-        android:id="@+id/tvCategoryEmoji"
+    <!-- Category icon -->
+    <ImageView
+        android:id="@+id/tvCategoryIcon"
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:gravity="center"
-        android:textSize="16sp"
+        android:scaleType="centerInside"
         android:background="@drawable/bg_emoji_circle"
-        android:layout_marginEnd="10dp"/>
+        android:layout_marginEnd="10dp"
+        android:padding="4dp"/>
 
     <LinearLayout
         android:layout_width="0dp"

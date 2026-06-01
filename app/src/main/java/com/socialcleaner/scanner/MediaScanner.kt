@@ -288,9 +288,15 @@ class MediaScanner {
         yearGroups: MutableMap<Int, MutableList<MediaFile>>,
         seenPaths: MutableSet<String>
     ) {
+        // Symlink protection: skip if not a real directory
+        if (!dir.absolutePath.startsWith(Environment.getExternalStorageDirectory().absolutePath)) return
+
         dir.listFiles()?.forEach { file ->
             if (file.isDirectory) {
-                scanDirectory(file, categoryMap, yearGroups, seenPaths)
+                // Skip symlinks by checking canonical path
+                if (file.canonicalPath == file.absolutePath) {
+                    scanDirectory(file, categoryMap, yearGroups, seenPaths)
+                }
             } else if (file.isFile && seenPaths.add(file.absolutePath)) {
                 val ext = file.extension.lowercase()
                 val isKnown = categoryMap.values.flatten().any { it == ext }

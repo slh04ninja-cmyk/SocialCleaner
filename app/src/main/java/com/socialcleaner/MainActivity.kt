@@ -569,7 +569,8 @@ class MainActivity : AppCompatActivity() {
                 for (filePath in filesToDelete) {
                     try {
                         val f = File(filePath)
-                        if (f.exists() && f.delete()) {
+                        val canonical = f.canonicalPath
+                        if (canonical == f.absolutePath && f.exists() && f.delete()) {
                             deletedCount++
                             deletedSize += f.length()
                         }

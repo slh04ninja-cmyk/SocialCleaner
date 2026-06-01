@@ -10,7 +10,7 @@
 local.properties
 
 # Keystore (keep secure)
-# release-keystore.jks
+release-keystore.jks
 
 # Store assets (large files)
 store-assets/

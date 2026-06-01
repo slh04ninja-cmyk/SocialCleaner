@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
+import com.google.android.material.color.DynamicColors
 
 class OnboardingActivity : AppCompatActivity() {
 
@@ -43,7 +46,16 @@ class OnboardingActivity : AppCompatActivity() {
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Apply Material You dynamic colors
+        DynamicColors.applyToActivityIfAvailable(this)
+
+        // Follow system dark/light theme
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
         super.onCreate(savedInstanceState)
+
+        // Activity transition
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
 
         // Check if already seen
         val prefs = getSharedPreferences("social_cleaner", Context.MODE_PRIVATE)
@@ -82,6 +94,20 @@ class OnboardingActivity : AppCompatActivity() {
 
     private fun showPage(index: Int) {
         val page = pages[index]
+
+        // Fade out current content
+        val fadeOut = AnimationUtils.loadAnimation(this, android.R.anim.fade_out)
+        fadeOut.duration = 150
+
+        // Fade in new content
+        val fadeIn = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
+        fadeIn.duration = 200
+
+        // Apply fade transition to content
+        tvTitle.startAnimation(fadeOut)
+        tvDescription.startAnimation(fadeOut)
+        ivImage.startAnimation(fadeOut)
+
         tvTitle.text = page.title
         tvDescription.text = page.description
 
@@ -95,6 +121,11 @@ class OnboardingActivity : AppCompatActivity() {
         } else {
             ivImage.setImageResource(R.drawable.onboarding_delete)
         }
+
+        // Fade in new content
+        tvTitle.startAnimation(fadeIn)
+        tvDescription.startAnimation(fadeIn)
+        ivImage.startAnimation(fadeIn)
 
         // Update button text
         if (index == pages.size - 1) {
@@ -112,6 +143,7 @@ class OnboardingActivity : AppCompatActivity() {
 
     private fun goToMain() {
         startActivity(Intent(this, MainActivity::class.java))
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         finish()
     }
 }

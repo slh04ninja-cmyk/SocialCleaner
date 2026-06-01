@@ -4,9 +4,9 @@
     android:layout_height="wrap_content"
     android:paddingHorizontal="16dp"
     android:paddingVertical="14dp"
-    android:textColor="#ffffff"
+    android:textColor="@color/text_primary"
     android:textSize="15sp"
     android:textStyle="bold"
     android:ellipsize="end"
     android:singleLine="true"
-    android:background="#1E1E3A"/>
+    android:background="@color/bg_surface"/>

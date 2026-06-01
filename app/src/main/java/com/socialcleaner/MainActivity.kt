@@ -9,15 +9,19 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.color.DynamicColors
 import com.socialcleaner.model.*
 import com.socialcleaner.scanner.AppRegistry
 import com.socialcleaner.scanner.MediaScanner
@@ -32,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var rvYears: RecyclerView
     private lateinit var progressBar: View
+    private lateinit var lottieScan: LottieAnimationView
     private lateinit var tvStatus: TextView
     private lateinit var tvStatFiles: TextView
     private lateinit var tvStatSize: TextView
@@ -53,8 +58,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Apply Material You dynamic colors
+        DynamicColors.applyToActivityIfAvailable(this)
+
+        // Follow system dark/light theme
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Activity transition
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
 
         initViews()
         setupYearSpinner()
@@ -64,6 +78,7 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         rvYears = findViewById(R.id.rvYears)
         progressBar = findViewById(R.id.progressBar)
+        lottieScan = findViewById(R.id.lottieScan)
         tvStatus = findViewById(R.id.tvStatus)
         tvStatFiles = findViewById(R.id.tvStatFiles)
         tvStatSize = findViewById(R.id.tvStatSize)
@@ -132,6 +147,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startScan() {
+        // Show Lottie scan animation
+        lottieScan.visibility = View.VISIBLE
+        lottieScan.playAnimation()
         progressBar.visibility = View.VISIBLE
         tvStatus.text = "Analyse en cours..."
         tvStatus.visibility = View.VISIBLE
@@ -163,6 +181,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayResults(results: List<AppScanResult>) {
+        // Hide Lottie animation with fade out
+        lottieScan.cancelAnimation()
+        lottieScan.animate()
+            .alpha(0f)
+            .setDuration(300)
+            .withEndAction {
+                lottieScan.visibility = View.GONE
+                lottieScan.alpha = 1f
+            }
+            .start()
+
         progressBar.visibility = View.GONE
         btnScan.isEnabled = true
 
@@ -192,7 +221,11 @@ class MainActivity : AppCompatActivity() {
             .sortedByDescending { it.year }
 
         yearAdapter.setData(yearGroups)
+
+        // Animate results appearance
+        btnDelete.alpha = 0f
         btnDelete.visibility = View.VISIBLE
+        btnDelete.animate().alpha(1f).setDuration(400).start()
     }
 
     private fun updateSelectionSummary() {
@@ -260,6 +293,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deleteSelected(filesToDelete: Set<String>) {
+        lottieScan.visibility = View.VISIBLE
+        lottieScan.playAnimation()
         progressBar.visibility = View.VISIBLE
         tvStatus.text = "Suppression en cours..."
 
@@ -281,6 +316,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            lottieScan.cancelAnimation()
+            lottieScan.visibility = View.GONE
             progressBar.visibility = View.GONE
             tvStatus.text = "$deletedCount supprimés • ${formatSize(deletedSize)} libérés"
             tvStatus.setTextColor(resources.getColor(R.color.success, theme))

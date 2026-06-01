@@ -167,6 +167,18 @@
                 android:paddingHorizontal="32dp"/>
         </LinearLayout>
 
+        <!-- Scan animation (Lottie) -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieScan"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/scan_animation"/>
+
         <!-- Progress bar -->
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressBar"

@@ -23,6 +23,9 @@ jobs:
       with:
         gradle-version: '8.5'
 
+    - name: Decode keystore
+      run: echo "${{ secrets.KEYSTORE_JKS }}" | base64 -d > app/release-keystore.jks
+
     - name: Create local.properties
       run: |
         echo "sdk.dir=${{ runner.tool_cache }}/android-sdk" > local.properties

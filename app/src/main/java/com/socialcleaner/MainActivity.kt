@@ -112,6 +112,7 @@ class MainActivity : AppCompatActivity() {
         private const val NOTIF_PERMISSION_CODE = 102
         private const val STATE_RESULTS = "scan_results"
         private const val STATE_YEAR = "selected_year"
+        private const val FOREGROUND_THRESHOLD = 100 // Use foreground service above this
     }
 
     override fun attachBaseContext(newBase: Context) {
@@ -367,7 +368,23 @@ class MainActivity : AppCompatActivity() {
         btnDelete.visibility = View.GONE
         selectionSummary.visibility = View.GONE
 
-        // Start and bind to foreground service
+        lifecycleScope.launch {
+            // Quick estimation on IO thread
+            val estimated = withContext(Dispatchers.IO) {
+                scanner.estimateFileCount()
+            }
+
+            if (estimated > FOREGROUND_THRESHOLD) {
+                // Many files → use foreground service with notification
+                startForegroundScan()
+            } else {
+                // Few files → regular scan without persistent notification
+                startQuickScan()
+            }
+        }
+    }
+
+    private fun startForegroundScan() {
         val intent = Intent(this, ScanService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(intent)
@@ -375,6 +392,29 @@ class MainActivity : AppCompatActivity() {
             startService(intent)
         }
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+    }
+
+    private fun startQuickScan() {
+        lifecycleScope.launch {
+            val results = withContext(Dispatchers.IO) {
+                val allResults = mutableListOf<AppScanResult>()
+                val apps = AppRegistry.supportedApps
+
+                for ((index, app) in apps.withIndex()) {
+                    withContext(Dispatchers.Main) {
+                        tvStatus.text = getString(R.string.scan_app, app.name, index + 1, apps.size)
+                    }
+                    val scanResults = scanner.scanApp(app, selectedYear)
+                    allResults.addAll(scanResults)
+                }
+
+                allResults.sortedWith(compareByDescending<AppScanResult> { it.year }
+                    .thenByDescending { it.totalSize })
+            }
+
+            allResults = results
+            displayResults(results)
+        }
     }
 
     private fun resetScanUI() {

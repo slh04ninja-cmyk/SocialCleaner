@@ -212,6 +212,37 @@ class MediaScanner {
     }
 
     /**
+     * Estimation rapide du nombre de fichiers (sans les lire).
+     * Utilisé pour décider si on active le foreground service.
+     */
+    fun estimateFileCount(): Int {
+        var count = 0
+        for (app in AppRegistry.supportedApps) {
+            for (mediaPath in app.mediaPaths) {
+                for (basePath in basePaths) {
+                    val dir = File(basePath, mediaPath)
+                    if (dir.exists() && dir.isDirectory) {
+                        count += countFilesQuick(dir)
+                    }
+                }
+            }
+        }
+        return count
+    }
+
+    private fun countFilesQuick(dir: File): Int {
+        var count = 0
+        dir.listFiles()?.forEach { file ->
+            if (file.isDirectory) {
+                count += countFilesQuick(file)
+            } else {
+                count++
+            }
+        }
+        return count
+    }
+
+    /**
      * Extrait l'année d'un fichier en priorisant le nom du fichier,
      * puis le chemin (dossier parent), puis lastModified().
      */

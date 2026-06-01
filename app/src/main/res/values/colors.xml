@@ -15,16 +15,16 @@
     <color name="bg_surface">#EAEAF2</color>
     <color name="bg_surface_light">#E0E0EC</color>
 
-    <!-- Text (Light theme) -->
+    <!-- Text (Light theme — darker for contrast) -->
     <color name="text_primary">#1A1A2E</color>
-    <color name="text_secondary">#555577</color>
-    <color name="text_hint">#9999BB</color>
+    <color name="text_secondary">#444466</color>
+    <color name="text_hint">#666688</color>
 
     <!-- Status -->
     <color name="success">#2E7D32</color>
-    <color name="warning">#F9A825</color>
-    <color name="error">#D32F2F</color>
-    <color name="info">#5C6BC0</color>
+    <color name="warning">#E65100</color>
+    <color name="error">#C62828</color>
+    <color name="info">#3949AB</color>
 
     <!-- Social colors -->
     <color name="whatsapp_color">#25D366</color>
@@ -39,4 +39,8 @@
     <!-- Checkbox -->
     <color name="checkbox_selected">#4ECDC4</color>
     <color name="checkbox_unselected">#CCCCCC</color>
+
+    <!-- Text on colored backgrounds (always white) -->
+    <color name="text_on_gradient">#FFFFFF</color>
+    <color name="text_on_gradient_secondary">#E0E0E0</color>
 </resources>

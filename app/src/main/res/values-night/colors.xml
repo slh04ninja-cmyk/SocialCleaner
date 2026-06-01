@@ -39,4 +39,8 @@
     <!-- Checkbox -->
     <color name="checkbox_selected">#4ECDC4</color>
     <color name="checkbox_unselected">#3A3A5C</color>
+
+    <!-- Text on colored backgrounds (always white) -->
+    <color name="text_on_gradient">#FFFFFF</color>
+    <color name="text_on_gradient_secondary">#E0E0E0</color>
 </resources>

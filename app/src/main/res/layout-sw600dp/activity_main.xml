@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Social Cleaner"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/text_on_gradient"
                 android:textSize="36sp"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif-medium"/>
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Libérez l'espace de votre tablette"
-                android:textColor="@color/text_hint"
+                android:textColor="@color/text_on_gradient_secondary"
                 android:textSize="16sp"
                 android:layout_marginTop="6dp"/>
 
@@ -72,7 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Fichiers"
-                        android:textColor="@color/text_hint"
+                        android:textColor="@color/text_on_gradient_secondary"
                         android:textSize="14sp"
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
@@ -100,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Espace utilisé"
-                        android:textColor="@color/text_hint"
+                        android:textColor="@color/text_on_gradient_secondary"
                         android:textSize="14sp"
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
@@ -128,7 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Applications"
-                        android:textColor="@color/text_hint"
+                        android:textColor="@color/text_on_gradient_secondary"
                         android:textSize="14sp"
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
@@ -219,7 +219,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/text_on_gradient"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 

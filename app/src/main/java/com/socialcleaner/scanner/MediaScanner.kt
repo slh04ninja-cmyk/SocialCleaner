@@ -162,11 +162,12 @@ class MediaScanner {
         val results = mutableListOf<AppScanResult>()
         val yearGroups = mutableMapOf<Int, MutableList<MediaFile>>()
 
+        val seenPaths = mutableSetOf<String>()
         for (mediaPath in app.mediaPaths) {
             for (basePath in basePaths) {
                 val fullPath = File(basePath, mediaPath)
                 if (fullPath.exists() && fullPath.isDirectory) {
-                    scanDirectory(fullPath, app.categories, yearGroups)
+                    scanDirectory(fullPath, app.categories, yearGroups, seenPaths)
                 }
             }
         }
@@ -238,12 +239,13 @@ class MediaScanner {
     private fun scanDirectory(
         dir: File,
         categoryMap: Map<String, List<String>>,
-        yearGroups: MutableMap<Int, MutableList<MediaFile>>
+        yearGroups: MutableMap<Int, MutableList<MediaFile>>,
+        seenPaths: MutableSet<String>
     ) {
         dir.listFiles()?.forEach { file ->
             if (file.isDirectory) {
-                scanDirectory(file, categoryMap, yearGroups)
-            } else if (file.isFile) {
+                scanDirectory(file, categoryMap, yearGroups, seenPaths)
+            } else if (file.isFile && seenPaths.add(file.absolutePath)) {
                 val ext = file.extension.lowercase()
                 val isKnown = categoryMap.values.flatten().any { it == ext }
                 if (isKnown || ext.isNotEmpty()) {

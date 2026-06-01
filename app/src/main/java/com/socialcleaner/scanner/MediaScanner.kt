@@ -138,6 +138,21 @@ object AppRegistry {
                 "Documents" to listOf("pdf", "doc", "docx"),
                 "Audio" to listOf("mp3", "ogg", "m4a")
             )
+        ),
+        SocialApp(
+            name = "X (Twitter)",
+            icon = "twitter",
+            packageName = "com.twitter.android",
+            mediaPaths = listOf(
+                "Android/data/com.twitter.android/files",
+                "Pictures/Twitter",
+                "DCIM/Twitter"
+            ),
+            categories = mapOf(
+                "Images" to listOf("jpg", "jpeg", "png", "webp", "gif"),
+                "Vidéos" to listOf("mp4", "3gp"),
+                "Documents" to listOf("pdf", "doc", "docx", "zip")
+            )
         )
     )
 }

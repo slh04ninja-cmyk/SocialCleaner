@@ -68,6 +68,7 @@ class AppResultAdapter(
                 "tiktok" -> R.drawable.ic_tiktok
                 "messenger" -> R.drawable.ic_messenger
                 "signal" -> R.drawable.ic_signal
+                "twitter" -> R.drawable.ic_twitter
                 else -> R.drawable.ic_app_default
             }
             ivAppIcon.setImageResource(iconRes)

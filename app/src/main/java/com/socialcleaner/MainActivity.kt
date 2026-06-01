@@ -90,11 +90,13 @@ class MainActivity : AppCompatActivity() {
             scanService?.onResult = { results ->
                 isScanning = false
                 allResults = results
+                unbindScanService()
                 displayResults(results)
             }
 
             scanService?.onCancelled = {
                 isScanning = false
+                unbindScanService()
                 resetScanUI()
                 tvStatus.text = getString(R.string.cancel)
             }
@@ -106,6 +108,14 @@ class MainActivity : AppCompatActivity() {
         override fun onServiceDisconnected(name: ComponentName?) {
             scanService = null
             serviceBound = false
+        }
+    }
+
+    private fun unbindScanService() {
+        if (serviceBound) {
+            try { unbindService(serviceConnection) } catch (_: Exception) {}
+            serviceBound = false
+            scanService = null
         }
     }
 
@@ -391,6 +401,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startForegroundScan() {
+        // Clean up any previous binding
+        unbindScanService()
+        try { stopService(Intent(this, ScanService::class.java)) } catch (_: Exception) {}
+
         val intent = Intent(this, ScanService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(intent)
@@ -582,10 +596,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (serviceBound) {
-            unbindService(serviceConnection)
-            serviceBound = false
-        }
+        unbindScanService()
     }
 
     override fun onBackPressed() {

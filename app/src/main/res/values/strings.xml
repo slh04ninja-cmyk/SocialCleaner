@@ -20,11 +20,11 @@
     <!-- Stats -->
     <string name="files">Fichiers</string>
     <string name="space_used_label">Espace utilisé</string>
-    <string name="apps_label">Applications</string>
+    <string name="apps_label">App</string>
     <string name="size">Taille</string>
     <string name="files_count">%d fichiers</string>
     <string name="space_used">%s utilisé</string>
-    <string name="apps_count">%d applications</string>
+    <string name="apps_count">%d apps</string>
 
     <!-- Spinner -->
     <string name="all_years">Toutes les années</string>

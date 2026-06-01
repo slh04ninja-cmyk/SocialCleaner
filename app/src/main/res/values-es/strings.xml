@@ -17,11 +17,11 @@
 
     <string name="files">Archivos</string>
     <string name="space_used_label">Espacio usado</string>
-    <string name="apps_label">Aplicaciones</string>
+    <string name="apps_label">App</string>
     <string name="size">Tamaño</string>
     <string name="files_count">%d archivos</string>
     <string name="space_used">%s usado</string>
-    <string name="apps_count">%d aplicaciones</string>
+    <string name="apps_count">%d apps</string>
 
     <string name="all_years">Todos los años</string>
 

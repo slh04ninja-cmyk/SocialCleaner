@@ -135,7 +135,11 @@
                             android:text="--"
                             android:textColor="@color/primary"
                             android:textSize="22sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:singleLine="true"
+                            android:autoSizeTextType="uniform"
+                            android:autoSizeMinTextSize="14sp"
+                            android:autoSizeMaxTextSize="22sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
